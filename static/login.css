@@ -1,0 +1,128 @@
+    .head {
+    display: inline-block;
+    text-align:center;
+    line-height:0.95em;
+    font-size: 150%;
+    font-weight:bold;
+    color: #ffffff;
+    text-shadow:
+        0 0.01em 0 #999,
+        0 0.02em 0 #888,
+        0 0.03em 0 #777,
+        0 0.04em 0 #666,
+        0 0.05em 0 #555,
+        0 0.06em 0 #444,
+        0 0.08em 0 #000;
+}
+
+    table{
+    table-layout: fixed;
+    text-align: center;
+    border-collapse:separate;
+    border-spacing: 0;
+    }
+    table th:first-child{
+    border-radius: 5px 0 0 0;
+    }
+
+    table th:last-child{
+    border-radius: 0 5px 0 0;
+    border-right: 1px solid #8196d9;
+    }
+    table th{
+    text-align: center;
+    background: linear-gradient(
+    to bottom,
+    #CED8F6 0%,
+    #b3acff 49%,
+    #6969ff 50%,
+    #5882FA 80%,
+    #ffa0f7 100%
+    );
+    border-left: 1px solid #8196d9;
+    border-top: 1px solid #8196d9;
+    border-bottom: 1px solid #8196d9;
+    box-shadow: 0px 2px 2px rgba(255, 255, 255, 0.48) inset;
+
+    }
+    table td{
+    text-align: center;
+    border-left: 1px solid #8196d9;
+    border-bottom: 1px solid #8196d9;
+    border-top:none;
+    box-shadow: 0px -3px 5px 1px #eee inset;
+    }
+    table td:last-child{
+    border-right: 1px solid #8196d9;
+    }
+
+    table tr:last-child td:first-child {
+    border-radius: 0 0 0 5px;
+    }
+
+    table tr:last-child td:last-child {
+    border-radius: 0 0 5px 0;
+    }
+    tbody tr{
+    background-image: linear-gradient(40deg, #f2f3ff, #ffffff);
+    }
+    th{
+    padding:10px;
+    vertical-align: middle;
+    }
+
+    a{
+        display: block;
+    }
+
+    .text1{
+        font-size: 80%;
+        margin-bottom: 8px;
+    }
+    .text2{
+        font-size: 130%;
+        color: #4c4cff;
+    }
+
+    .btn {
+        display: inline-block;
+        margin: 0.5em 0  1em 0;
+        background: linear-gradient(
+            to bottom,
+            rgb(231, 255, 246) 0%,
+            rgb(138, 255, 205) 49%,
+            #00cc99 50%,
+            #85ffc7 80%,
+            #bbffe1 100%
+        );
+        color: #1a6c36;
+        font-weight: bold;
+        text-shadow: 0 1px 0 #EFF5FB;
+        box-shadow: 1px 1px  #629767 inset;
+        border-radius:5px;
+    }
+
+    .remainder {
+        height: 700px;
+        background: linear-gradient(to top, #8d87ff, #ffffff 95%);
+    }
+
+    .square-eye{
+    background-color: transparent;
+    background-image:
+    linear-gradient(0deg, transparent 9%,
+            rgba(255, 255, 255, .2) 10%, rgba(255, 255, 255, .2) 12%, transparent 13%, transparent 29%,
+            rgba(255, 255, 255, .1) 30%, rgba(255, 255, 255, .1) 31%, transparent 32%, transparent 49%,
+            rgba(255, 255, 255, .1) 50%, rgba(255, 255, 255, .1) 51%, transparent 52%, transparent 69%,
+            rgba(255, 255, 255, .1) 70%, rgba(255, 255, 255, .1) 71%, transparent 72%, transparent 89%,
+            rgba(255, 255, 255, .1) 90%, rgba(255, 255, 255, .1) 91%, transparent 92%, transparent),
+    linear-gradient(90deg, transparent 9%,
+            rgba(255, 255, 255, .2) 10%, rgba(255, 255, 255, .2) 12%, transparent 13%, transparent 29%,
+            rgba(255, 255, 255, .1) 30%, rgba(255, 255, 255, .1) 31%, transparent 32%, transparent 49%,
+            rgba(255, 255, 255, .1) 50%, rgba(255, 255, 255, .1) 51%, transparent 52%, transparent 69%,
+            rgba(255, 255, 255, .1) 70%, rgba(255, 255, 255, .1) 71%, transparent 72%, transparent 89%,
+            rgba(255, 255, 255, .1) 90%, rgba(255, 255, 255, .1) 91%, transparent 92%, transparent);
+
+    height:100%;
+     background-size:100px 100px;
+}

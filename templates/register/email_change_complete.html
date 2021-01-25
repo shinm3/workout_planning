@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'name_change.css' %}">
+{% endblock %}
+
+{% block title %}メールアドレス変更完了画面{% endblock %}
+
+{% block content %}
+{% include 'base2.html' %}
+<div class="remainder">
+    <div class="square-eye">
+        <p class="description">
+            メールアドレスを変更しました。<br>
+        </p>
+    </div>
+</div>
+<div class="push"></div>
+{% endblock %}

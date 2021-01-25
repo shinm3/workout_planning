@@ -1,0 +1,23 @@
+<p>
+                {% if today_schedules %}
+                    {% if today_schedules|length == 1 %}
+                        {% for today_schedule in today_schedules %}
+                            {% if today_schedule.part == '全身' %}
+                                今日もハードだな！<br>がんばれよ！！
+                            {% elif today_schedule.part == '上半身' %}
+                                いいねぇ！！
+                            {% else %}
+                                一点集中だな！！
+                            {% endif %}
+                        {% endfor %}
+                    {% elif today_schedules|length <= 3 %}
+                        筋肉が喜んでるぜ！
+                    {% elif today_schedules|length <= 4 %}
+                        またパーフェクトボディに<br>近づいちまうな！！
+                    {% else %}
+                        自分より筋肉のある人が許せない
+                    {% endif %}
+                {% else %}
+                    筋肉が休めと言っている...
+                {% endif %}
+                </p>

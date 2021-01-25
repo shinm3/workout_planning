@@ -1,0 +1,168 @@
+    .position{
+    position: relative;
+    }
+    .term{
+    border-bottom:dashed 1px #b1b0f6;
+    letter-spacing: 0.05em;
+    color: #3c3bff;
+    }
+    .term_link{
+    position: absolute;
+    right: 2em;
+    }
+    .description{
+        font-size: 0.8em;
+        margin: 0.5em;
+    }
+    .wrapper > .container {
+        background-color: #ffffff;
+        padding: 0;
+    }
+    .week {
+    display: inline-block;
+    text-align:center;
+    line-height:0.95em;
+    font-weight:bold;
+    color: #ffffff;
+    text-shadow:
+        0 0.01em 0 #999,
+        0 0.02em 0 #888,
+        0 0.03em 0 #777,
+        0 0.04em 0 #666,
+        0 0.05em 0 #555,
+        0 0.06em 0 #444,
+        0 0.08em 0 #000;
+}
+    .week:active {
+    -webkit-transform: translateY(1px);
+    transform: translateY(1px);
+    border-bottom: none;
+    }
+    span{
+    padding: 0 0.5em;
+    }
+    table{
+    table-layout: fixed;
+    text-align: center;
+    border-collapse:separate;
+    border-spacing: 0;
+    }
+    table th:first-child{
+    border-radius: 5px 0 0 0;
+    }
+
+    table th:last-child{
+    border-radius: 0 5px 0 0;
+    border-right: 1px solid #8196d9;
+    }
+    table th{
+    text-align: center;
+    background: linear-gradient(
+    to bottom,
+    #CED8F6 0%,
+    #b3acff 49%,
+    #6969ff 50%,
+    #5882FA 80%,
+    #ffa0f7 100%
+    );
+    border-left: 1px solid #8196d9;
+    border-top: 1px solid #8196d9;
+    border-bottom: 1px solid #8196d9;
+    box-shadow: 0px 2px 2px rgba(255, 255, 255, 0.48) inset;
+
+    }
+    table td{
+    text-align: center;
+    border-left: 1px solid #8196d9;
+    border-bottom: 1px solid #8196d9;
+    border-top:none;
+    box-shadow: 0px -3px 5px 1px #eee inset;
+    }
+    table td:last-child{
+    border-right: 1px solid #8196d9;
+    }
+
+    table tr:last-child td:first-child {
+    border-radius: 0 0 0 5px;
+    }
+
+    table tr:last-child td:last-child {
+    border-radius: 0 0 5px 0;
+    }
+    tbody tr{
+    background-image: linear-gradient(40deg, #e7e7ff, #ffffff);
+    }
+    th{
+    padding:10px;
+    }
+
+    .delete{
+    display: inline-block;
+    margin: 1em;
+    background: linear-gradient(
+    to bottom,
+    rgb(253, 254, 255) 0%,
+    rgb(213, 213, 213) 49%,
+    #9c9c9c 50%,
+    #b1b1b1 80%,
+    #dadada 100%
+    );
+    color: #000000;
+    text-shadow: 0 1px 0 #EFF5FB;
+    box-shadow: 0 1px 0 #FFF inset;
+    border-radius:5px;
+    }
+    .border_double{
+    text-align: center;
+    border-top:double 3px  #8196d9;
+    }
+    .remainder {
+        height: 700px;
+        background: linear-gradient(to top, #8d87ff, #ffffff 95%);
+    }
+    .overwrite{
+        display: block;
+        font-size: 0.8em;
+        color: #5b59f6;
+        margin-top: 1.3em;
+    }
+    .decision{
+    display: inline-block;
+    margin: 1em;
+    background: linear-gradient(
+    to bottom,
+    rgb(231, 255, 246) 0%,
+    rgb(138, 255, 205) 49%,
+    #00cc99 50%,
+    #85ffc7 80%,
+    #bbffe1 100%
+    );
+    color: #000000;
+    text-shadow: 0 1px 0 #EFF5FB;
+    box-shadow: 0 1px 0 #FFF inset;
+    border-radius:5px;
+    }
+
+    .square-eye{
+    background-color: transparent;
+    background-image:
+    linear-gradient(0deg, transparent 9%,
+            rgba(255, 255, 255, .2) 10%, rgba(255, 255, 255, .2) 12%, transparent 13%, transparent 29%,
+            rgba(255, 255, 255, .1) 30%, rgba(255, 255, 255, .1) 31%, transparent 32%, transparent 49%,
+            rgba(255, 255, 255, .1) 50%, rgba(255, 255, 255, .1) 51%, transparent 52%, transparent 69%,
+            rgba(255, 255, 255, .1) 70%, rgba(255, 255, 255, .1) 71%, transparent 72%, transparent 89%,
+            rgba(255, 255, 255, .1) 90%, rgba(255, 255, 255, .1) 91%, transparent 92%, transparent),
+    linear-gradient(90deg, transparent 9%,
+            rgba(255, 255, 255, .2) 10%, rgba(255, 255, 255, .2) 12%, transparent 13%, transparent 29%,
+            rgba(255, 255, 255, .1) 30%, rgba(255, 255, 255, .1) 31%, transparent 32%, transparent 49%,
+            rgba(255, 255, 255, .1) 50%, rgba(255, 255, 255, .1) 51%, transparent 52%, transparent 69%,
+            rgba(255, 255, 255, .1) 70%, rgba(255, 255, 255, .1) 71%, transparent 72%, transparent 89%,
+            rgba(255, 255, 255, .1) 90%, rgba(255, 255, 255, .1) 91%, transparent 92%, transparent);
+
+    height:100%;
+     background-size:100px 100px;
+}
+
+.push {
+    height: 60px;
+}

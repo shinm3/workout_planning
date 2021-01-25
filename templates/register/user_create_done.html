@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'name_change.css' %}">
+{% endblock %}
+
+{% block title %}会員登録{% endblock %}
+
+{% block content %}
+{% include 'base2.html' %}
+<div class="remainder">
+    <div class="square-eye">
+        <p>
+            会員登録確認メールを送信しました。まだ、会員登録は完了していません。<br>
+    確認メールを送信しましたので、確認メールに記載されているリンクから本登録を行ってください。
+        </p>
+    </div>
+</div>
+<div class="push"></div>
+{% endblock %}

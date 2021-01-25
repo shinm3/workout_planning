@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'name_change.css' %}">
+{% endblock %}
+
+{% block title %}会員登録{% endblock %}
+
+{% block content %}
+{% include 'base2.html' %}
+<p class="description">
+    各項目にご入力ください。　<span>※は必須項目になります</span>
+</p>
+<form action="" method="POST">{% csrf_token %}
+    {{ form.non_field_errors }}
+    {% for field in user_form %}
+    <div class="form-group">
+        {% if field.field.required %}※{% endif %}
+        <label for="{{ field.id_for_label }}">{{ field.label_tag }}</label>
+        {{ field }}
+        {{ field.errors }}
+    </div>
+    {% endfor %}
+    {% for field in profile_form %}
+    <div class="form-group">
+        {% if field.field.required %}※{% endif %}
+        <label for="{{ field.id_for_label }}">{{ field.label_tag }}</label>
+        {{ field }}
+        {{ field.errors }}
+    </div>
+    {% endfor %}
+    <div class="border_double">
+        <button type="submit" class="update btn btn-primary btn-lg">確認画面へ</button>
+    </div>
+</form>
+<div class="remainder">
+    <div class="square-eye"></div>
+</div>
+<div class="push"></div>
+{% endblock %}

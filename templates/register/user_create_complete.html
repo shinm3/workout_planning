@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'name_change.css' %}">
+{% endblock %}
+
+{% block title %}会員登録{% endblock %}
+
+{% block content %}
+{% include 'base2.html' %}
+<div class="remainder">
+    <div class="square-eye">
+        <p class="description">
+            本登録が完了しました。<br>
+            登録されたメールアドレスとパスワードでログインしてください。<br>
+        </p>
+        <div class="bottom">
+            <a class="update btn btn-primary btn-lg" href="{% url 'register:login' %}">ログイン</a>
+        </div>
+    </div>
+</div>
+<div class="push"></div>
+{% endblock %}

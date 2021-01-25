@@ -1,0 +1,79 @@
+.description {
+    font-size: 18px;
+    padding: 20px 0;
+    border-bottom: dashed 1px #b1b0f6;
+}
+
+
+.character {
+    margin-top: 40px;
+}
+
+.character p {
+    font-weight: bold;
+    font-size: 25px;
+}
+
+.character p:after {
+    content: "";
+    display: block;
+    height: 4px;
+    background: -webkit-linear-gradient(to right, rgb(28, 26, 154), #bdbfe6);
+    background: linear-gradient(to right, rgb(28, 26, 154), #bdbfe6);
+    }
+
+.img_wrap{
+  transition-duration: 0.5s;
+}
+.img_wrap img{
+  width: 100%;
+  cursor: pointer;
+}
+.img_wrap:hover{
+  transform: translateY(-15px);
+  transition-duration: 0.5s;
+}
+
+.remainder {
+        height: 100%;
+        background: linear-gradient(to top, #8d87ff, #ffffff 95%);
+    }
+
+.square-eye{
+    background-color: transparent;
+    background-image:
+    linear-gradient(0deg, transparent 9%,
+            rgba(255, 255, 255, .2) 10%, rgba(255, 255, 255, .2) 12%, transparent 13%, transparent 29%,
+            rgba(255, 255, 255, .1) 30%, rgba(255, 255, 255, .1) 31%, transparent 32%, transparent 49%,
+            rgba(255, 255, 255, .1) 50%, rgba(255, 255, 255, .1) 51%, transparent 52%, transparent 69%,
+            rgba(255, 255, 255, .1) 70%, rgba(255, 255, 255, .1) 71%, transparent 72%, transparent 89%,
+            rgba(255, 255, 255, .1) 90%, rgba(255, 255, 255, .1) 91%, transparent 92%, transparent),
+    linear-gradient(90deg, transparent 9%,
+            rgba(255, 255, 255, .2) 10%, rgba(255, 255, 255, .2) 12%, transparent 13%, transparent 29%,
+            rgba(255, 255, 255, .1) 30%, rgba(255, 255, 255, .1) 31%, transparent 32%, transparent 49%,
+            rgba(255, 255, 255, .1) 50%, rgba(255, 255, 255, .1) 51%, transparent 52%, transparent 69%,
+            rgba(255, 255, 255, .1) 70%, rgba(255, 255, 255, .1) 71%, transparent 72%, transparent 89%,
+            rgba(255, 255, 255, .1) 90%, rgba(255, 255, 255, .1) 91%, transparent 92%, transparent);
+
+    height:100%;
+     background-size:100px 100px;
+}
+
+.push {
+    height: 60px;
+}
+
+@media (max-width:767px) {
+         .image {
+            width:50%;
+    }
+        .img_wrap {
+            text-align: center;
+        }
+}
+@media (min-width:992px) {
+        .image {
+            width:77%;
+    }
+}
+

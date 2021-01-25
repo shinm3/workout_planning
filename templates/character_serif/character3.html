@@ -1,0 +1,23 @@
+<p>
+    {% if today_schedules %}
+        {% if today_schedules|length == 1 %}
+            {% for today_schedule in today_schedules %}
+                {% if today_schedule.part == '全身' %}
+                    筋トレしすぎじゃない？<br>大丈夫？
+                {% elif today_schedule.part == '上半身' %}
+                    バストアップ！！
+                {% else %}
+                    ちょっと部位少ないんじゃない？
+                {% endif %}
+            {% endfor %}
+        {% elif today_schedules|length <= 3 %}
+            お腹すいたー！
+        {% elif today_schedules|length <= 4 %}
+            今日は大変だね<br>！！
+        {% else %}
+            美ボディに近づいたかな？
+        {% endif %}
+    {% else %}
+        今日はおでかけかな？
+    {% endif %}
+</p>

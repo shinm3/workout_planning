@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'create_update.css' %}">
+{% endblock %}
+
+{% block title %}day_create{% endblock %}
+
+{% block content %}
+{% include 'base2.html' %}
+
+<!-- 選択された日付を表示 -->
+<a href="{% url 'tr_calendar:month_with_schedule' %}">カレンダーに戻る</a>
+<div class="enclose">
+<h2>{{ select_day | date:"Y年m月d日" }}</h2>
+<form method="post" class="form">{% csrf_token %}
+    <!-- 部位選択フォーム -->
+    <table class="container">
+    <tr>
+      <th colspan="2" class="heading">部位登録フォーム ※5部位まで</th>
+    </tr>
+    <tr>
+      <th><label for="part">部位</label></th>
+      <td>
+      <select name="part" id="part" onchange="createPart(this.value);">
+        {% for field in form.part %}
+          {{ field }}
+        {% endfor %}
+      </select>
+    </td>
+    </tr>
+    <input type="button" value="部位の詳細を指定する" id="btn1" onclick="clickBtn1();" />
+    <!-- 部位の詳細選択フォーム※部位の選択がなければ選択不可。部位選択があればそれに応じて項目が変化する -->
+    <tr id="p1">
+      <th><label for="partList">部位の詳細</label></th>
+      <td>
+      <select name="detail_part" id="partList" disabled>
+        <option disabled selected>部位の詳細</option>
+      </select>
+      </td>
+    </tr>
+    </table>
+    <label class="continue"><input type="checkbox" name="continue">他の部位を続けて登録する</label>
+    <input type="submit" value="登録" class="register">
+    <!-- エラーがあればエラーを表示します -->
+    {% if error %}
+    <div class="error">{{ error }}</div>
+    {% endif %}
+    {% if form.errors %}
+      <div class="error">
+        {{ form.non_field_errors }}
+      </div>
+    {% endif %}
+</form>
+</div>
+<!-- 選択された日付の曜日,日付指定オブジェクトを表示する -->
+{% if None not in wd_dt_bp_objects %}
+    <h3>登録済み</h3>
+    <form action="{% url 'tr_calendar:routine_day_delete' select_day.year select_day.month select_day.day %}" method="post" class="form">{% csrf_token %}
+    <table class="container">
+    {% for wd_dt_bp_object in wd_dt_bp_objects %}
+      <tr>
+        <td>
+            {% if wd_dt_bp_object.date %}
+            <input type="checkbox" name="delete_dt_obj" value="{{ wd_dt_bp_object.pk }}">
+            {% else %}
+            <input type="checkbox" name="delete_wd_obj" value="{{ wd_dt_bp_object.pk }}">
+            {% endif %}
+        </td>
+        <td>
+            {{ wd_dt_bp_object.part }}
+            {% if wd_dt_bp_object.detail_part %}
+            ：{{ wd_dt_bp_object.detail_part　}}
+            {% endif %}
+        </td>
+        <td>
+        {% if wd_dt_bp_object.date %}
+            <a href="{% url 'tr_calendar:day_schedule_update' wd_dt_bp_object.pk %}">変更</a>
+        {% else %}
+            <a href="{% url 'tr_calendar:day_schedule_update2' wd_dt_bp_object.pk select_day.year select_day.month select_day.day %}">変更</a>
+        {% endif %}
+        </td>
+      </tr>
+    {% endfor %}
+    </table>
+    <input type="submit" value="チェックした項目を削除" class="delete">
+    </form>
+{% endif %}
+<div class="remainder">
+    <div class="square-eye"></div>
+</div>
+<div class="push"></div>
+<script>
+'use strict';
+
+//詳細部位の定数
+const detailPart =
+      {
+        "胸": ["上部", "中部", "下部"],
+        "背中": ["広背筋", "僧帽筋中部"],
+        "肩": ["前部", "側部", "後部", "僧帽筋上部"],
+        "腕": ["二頭", "三頭", "前腕"],
+        "脚": ["四頭", "ハム", "臀部", "カーフ"],
+      };
+
+//選択された部位に対応した詳細部位を選択できるようにする関数
+function createPart(selectPart){
+
+  let partList = document.getElementById('partList');
+  partList.disabled = false;
+  partList.innerHTML = '';
+  let option = document.createElement('option');
+  option.innerHTML = '部位の詳細を選択してください。';
+  option.defaultSelected = true;
+  option.disabled = true;
+  partList.appendChild(option);
+
+  detailPart[selectPart].forEach( part => {
+    let option = document.createElement('option');
+    option.innerHTML = part;
+    partList.appendChild(option);
+  });
+}
+
+//通常時は部位の詳細選択フォームを非表示にする
+document.getElementById("btn1").style.display ="none";
+
+//部位の詳細を指定するボタンを押して部位の詳細選択フォームを表示する関数
+function clickBtn1(){
+	const p1 = document.getElementById("p1");
+
+	if(p1.style.display=="block"){
+		p1.style.display ="none";
+	}else{
+		p1.style.display ="block";
+	}
+}
+</script>
+{% endblock %}

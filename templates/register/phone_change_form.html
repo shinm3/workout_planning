@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'name_change.css' %}">
+{% endblock %}
+
+{% block title %}電話番号変更フォーム{% endblock %}
+
+{% block content %}
+{% include 'base2.html' %}
+<p class="description">変更先の電話番号を入力してください</p>
+<div class="remainder">
+    <div class="square-eye">
+        <form action="" method="POST">
+            {{ form.non_field_errors }}
+            <div class="form-group">
+                <label for="{{ form.phone.id_for_label }}">{{ form.phone.label_tag }}</label>
+                    {{ form.phone }}
+                    {{ form.phone.errors }}
+            </div>
+            {{ form.name.as_hidden }}
+            {{ form.gender.as_hidden }}
+            {{ form.birthday.as_hidden }}
+            {% csrf_token %}
+            <button type="submit" class="update btn btn-primary btn-lg">変更</button>
+        </form>
+    </div>
+</div>
+<div class="push"></div>
+{% endblock %}

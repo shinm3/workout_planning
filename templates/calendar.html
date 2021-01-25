@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'calendar.css' %}">
+{% endblock %}
+
+{% block title %}calendar{% endblock %}
+
+{% block content %}
+{% include 'base2.html' %}
+<div class="link-parent">
+    <div class="month">
+        <a href="{% url 'tr_calendar:month_with_schedule' month_previous.year month_previous.month %}">前月</a>
+            {{ month_current | date:"Y年m月" }}
+        <a href="{% url 'tr_calendar:month_with_schedule' month_next.year month_next.month %}">次月</a>
+    </div>
+    <div class="routine">
+        <a href="{% url 'routine:list' %}">ルーティンを設定する</a>
+    </div>
+</div>
+<div class="table-responsive-sm">
+<table class="table">
+    <thead>
+    <tr>
+        {% for w in week_names %}
+        <th><div class="week">{{ w }}</div></th>
+        {% endfor %}
+    </tr>
+    </thead>
+    <tbody>
+    {% for week_day_schedules in month_day_schedules %}
+        <tr>
+            {% for day, schedules in week_day_schedules.items %}
+            {% if now == day %}
+                <td class="today">
+            {% else %}
+                <td>
+            {% endif %}
+                <div>
+                    {% if now == day %}
+                        {% if schedules %}
+                            <div class="now-day">
+                        {% else %}
+                            <div class="now-off-day">
+                        {% endif %}
+                    {% elif schedules %}
+                    <div class="workout-day">
+                    {% else %}
+                    <div class="day">
+                    {% endif %}
+                        <span class="title">{{ day | date:"m/d" }}</span>
+                    {% if not schedules %}
+                        <a href="{% url 'tr_calendar:day_schedule_create' day.year day.month　day.day %}" class="new">
+                            作成
+                        </a>
+                    {% else %}
+                        <a href="{% url 'tr_calendar:day_schedule_detail' day.year day.month　day.day 1 %}" class="detail">
+                            詳細
+                        </a>
+                    {% endif %}
+                    {% if not schedules %}
+                            <p>Off</p>
+                    {% else %}
+                            <p>Workout Day</p>
+                    {% endif %}
+                    </div>
+            </td>
+            {% endfor %}
+        </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+    </div>
+{% if all_objects %}
+<form action="{% url 'tr_calendar:routine_day_delete' %}" method="post"  class="form">{% csrf_token %}
+    <input type="submit" name="delete_all" value="すべて削除する" onClick="return Check()" class="delete">
+</form>
+{% endif %}
+<div class="remainder">
+    <div class="square-eye"></div>
+</div>
+<div class="push"></div>
+
+<script>
+'use strict';
+
+ function Check(){
+    let result = window.confirm('全てのスケジュールを削除します。よろしいでしょうか？\n' +
+        '※ルーティン設定したスケジュールも削除されます。');
+
+    if (result) {
+          return true;
+      } else {
+          return false;
+      }
+}
+</script>
+{% endblock %}

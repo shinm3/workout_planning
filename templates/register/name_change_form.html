@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'name_change.css' %}">
+{% endblock %}
+
+{% block title %}ハンドルネーム変更フォーム{% endblock %}
+
+{% block content %}
+{% include 'base2.html' %}
+<p class="description">変更先のハンドルネームを入力してください</p>
+<div class="remainder">
+    <div class="square-eye">
+        <form action="" method="POST">
+            {{ form.non_field_errors }}
+            <div class="form-group">
+                <label for="{{ form.name.id_for_label }}">{{ form.name.label_tag }}</label>
+                    {{ form.name }}
+                    {{ form.name.errors }}
+            </div>
+            {{ form.phone.as_hidden }}
+            {{ form.gender.as_hidden }}
+            {{ form.birthday.as_hidden }}
+            {% csrf_token %}
+            <button type="submit" class="update btn btn-primary btn-lg">変更</button>
+        </form>
+    </div>
+</div>
+<div class="push"></div>
+{% endblock %}

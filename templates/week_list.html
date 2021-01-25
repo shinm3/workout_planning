@@ -1,0 +1,77 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'week_list.css' %}">
+{% endblock %}
+
+{% block title %}week_list{% endblock %}
+
+{% block content %}
+
+{% include 'base2.html' %}
+<div class="wrapper">
+    <div class="position">
+        <p class="term container">期間：{{ term_object.start_date| date:"Y/m/d" }}<span>~</span>{{ term_object.end_date| date:"Y/m/d" }}
+        <a href="{% url 'routine:term_decision' %}" class="term_link">変更</a>
+        </p>
+        <p class="container description">設定する曜日をクリックしてください</p>
+    </div>
+    <table class="container">
+    <thead>
+        <tr>
+            <th><a href="{% url 'routine:create' 0 %}" class="week">月</a></th>
+            <th><a href="{% url 'routine:create' 1 %}" class="week">火</a></th>
+            <th><a href="{% url 'routine:create' 2 %}" class="week">水</a></th>
+            <th><a href="{% url 'routine:create' 3 %}" class="week">木</a></th>
+            <th><a href="{% url 'routine:create' 4 %}" class="week">金</a></th>
+            <th><a href="{% url 'routine:create' 5 %}" class="week">土</a></th>
+            <th><a href="{% url 'routine:create' 6 %}" class="week">日</a></th>
+        </tr>
+    </thead>
+    <tbody>
+    {% if body_parts_count != 7 %}  <!-- 空でないbody_partが一つでもあれば -->
+    {% for body_part_set in body_part_i_set %}
+    <tr>
+        {% for body_part in body_part_set %}
+        <td>
+            {% if body_part.part %}
+            <img src="{% static body_part.image %}" width=100% alt="{{ body_part.part }}" class="bright">
+            {% else %}
+            <img src="{% static 'media/media/empty.png' %}" width=100% alt="空">
+            {% endif %}
+        </td>
+        {% endfor %}
+    </tr>
+    {% endfor %}
+    {% else %}
+    <tr>
+        {% with ''|center:7 as range %}
+            {% for _ in range %}
+                    <td>
+                        <img src="{% static 'media/media/empty.png' %}" width=100% alt="空">
+                    </td>
+            {% endfor %}
+        {% endwith %}
+    </tr>
+    {% endif %}
+    </tbody>
+    </table>
+{% if body_part_i_set %}
+
+<form action="{% url 'routine:delete' %}" method="post" class="container ">
+    {% csrf_token %}
+    <input type="submit" name="delete_all" value="すべて削除する" class="delete">
+</form>
+{% endif %}
+<form action="{% url 'routine:routine_decision' %}" method="post" class="container position border_double">
+    {% csrf_token %}
+    <label class="overwrite"><input type="checkbox" name="overwrite">ルーティン設定した曜日のいずれかの日付に部位登録がされいる場合、それを上書きする</label>
+    <input type="submit" name="routine_decision" value="決定する" class="decision">
+</form>
+<div class="remainder">
+    <div class="square-eye"></div>
+</div>
+<div class="push"></div>
+</div>
+{% endblock %}

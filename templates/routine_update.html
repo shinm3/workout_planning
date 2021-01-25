@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'create_update.css' %}">
+{% endblock %}
+
+{% block title %}update{% endblock %}
+
+{% block content %}
+{% include 'base2.html' %}
+
+<!-- 選択された曜日を表示 -->
+<div class="enclose">
+<h2>{{ wd }}</h2>
+<form method="post" class="form">{% csrf_token %}
+    <input type="hidden" name="week" value="{{ wd }}">
+    <!-- 部位選択フォーム -->
+    <table class="container">
+    <tr>
+      <th colspan="2" class="heading">部位更新フォーム</th>
+    </tr>
+    <tr>
+      <th><label for="part">部位:</label></th>
+      <td>
+      <select name="part" id="part" onchange="createPart(this.value);">
+        {% for field in form.part %}
+          {{ field }}
+        {% endfor %}
+      </select>
+      </td>
+    <!-- 部位の詳細選択フォーム※部位の選択がなければ選択不可。部位選択があればそれに応じて項目が変化する -->
+    <tr id="p1">
+      <th><label for="partList">部位の詳細:</label></th>
+      <td>
+      <select name="detail_part" id="partList" >
+        <option>部位の詳細</option>
+      </select>
+      </td>
+    </tr>
+    </table>
+    <input type="submit" value="更新" class="update">
+    {% if form.errors %}
+      <div class="error">
+        {{ form.non_field_errors }}
+      </div>
+    {% endif %}
+</form>
+</div>
+<div class="remainder">
+    <div class="square-eye"></div>
+</div>
+<div class="push"></div>
+<script>
+'use strict';
+
+//詳細部位の定数
+const detailPart =
+      {
+        "胸": ["上部", "中部", "下部"],
+        "背中": ["広背筋", "僧帽筋中部"],
+        "肩": ["前部", "側部", "後部", "僧帽筋上部"],
+        "腕": ["二頭", "三頭", "前腕"],
+        "脚": ["四頭", "ハム",　"臀部", "カーフ"],
+      };
+
+//選択された部位に対応した詳細部位を選択できるようにする関数
+function createPart(selectPart){
+
+  let partList = document.getElementById('partList');
+  partList.disabled = false;
+  partList.innerHTML = '';
+  let option = document.createElement('option');
+  option.innerHTML = '部位の詳細を選択してください。';
+  option.defaultSelected = true;
+  option.disabled = true;
+  partList.appendChild(option);
+
+  detailPart[selectPart].forEach( part => {
+    let option = document.createElement('option');
+    option.innerHTML = part;
+    partList.appendChild(option);
+  });
+}
+</script>
+{% endblock %}

@@ -1,0 +1,28 @@
+<style>
+    h1 {
+	padding: 0.25em 0;
+	font-size: 32px;
+    font-weight: bold;
+    margin: 0.5em 0 0.5em;
+    background: linear-gradient(to right, #9b9aff, #ffffff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    }
+
+    h1:after {
+    content: "";
+    display: block;
+    height: 4px;
+    background: -webkit-linear-gradient(to right, rgb(222, 223, 255), #ffffff);
+    background: linear-gradient(to right, rgb(222, 223, 255), #ffffff);
+    }
+
+    @media screen and (max-width: 1030px){
+    h1 {
+	font-size: 28px;
+    }
+    }
+
+
+</style>
+<h1>{{ page_title }}</h1>

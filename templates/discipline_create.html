@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'discipline_create_update.css' %}">
+{% endblock %}
+
+{% block title %}week_list{% endblock %}
+
+{% block content %}
+{% include 'base2.html' %}
+<a href="{% url 'tr_calendar:day_schedule_detail' date.year date.month date.day 1 %}">詳細画面に戻る</a>
+<h2>{{ date | date:"Y年m月d日" }}</h2>
+<form method="post" class="form">{% csrf_token %}
+    <input type="hidden" name="{{ form.date }}" value="{{ date }}">
+    <table class="container">
+        <tr class="tr1">
+            <th class="heading">種目登録フォーム</th>
+        </tr>
+    </table>
+    <div class="discipline">
+        <p>種目を入力してください。　：　{{ form.discipline }}</p>
+    </div>
+        <p>セットあたりの重量と回数を入力してください。※自重は0となります</p>
+    <div class="table-contents">
+    <table class="container table2">
+        <tr class="tr2">
+            <td></td>
+            <th>セット1</th>
+            <th>セット2</th>
+            <th>セット3</th>
+            <th>セット4</th>
+            <th>セット5</th>
+            <th>セット6</th>
+            <th>セット7</th>
+            <th>セット8</th>
+            <th>セット9</th>
+            <th>セット10</th>
+        </tr>
+        <tr class="tr2">
+            <th>重量</th>
+            <td>{{ form.weight_1 }}</td>
+            <td>{{ form.weight_2 }}</td>
+            <td>{{ form.weight_3 }}</td>
+            <td>{{ form.weight_4 }}</td>
+            <td>{{ form.weight_5 }}</td>
+            <td>{{ form.weight_6 }}</td>
+            <td>{{ form.weight_7 }}</td>
+            <td>{{ form.weight_8 }}</td>
+            <td>{{ form.weight_9 }}</td>
+            <td>{{ form.weight_10 }}</td>
+        </tr>
+        <tr class="tr2">
+            <th>回数</th>
+            <td>{{ form.times_1 }}</td>
+            <td>{{ form.times_2 }}</td>
+            <td>{{ form.times_3 }}</td>
+            <td>{{ form.times_4 }}</td>
+            <td>{{ form.times_5 }}</td>
+            <td>{{ form.times_6 }}</td>
+            <td>{{ form.times_7 }}</td>
+            <td>{{ form.times_8 }}</td>
+            <td>{{ form.times_9 }}</td>
+            <td>{{ form.times_10 }}</td>
+        </tr>
+    </table>
+    </div>
+    <div class="remainder"></div>
+    <p class="remarks">備考　：　{{ form.remarks }}</p>
+    <div class="remainder"></div>
+    <div class="register_contain">
+        <label class="continue"><input type="checkbox" name="continue">続けて登録する</label>
+        <input type="submit" name="edit" value="登録" class="register">
+    </div>
+</form>
+<div class="under_the_frame"></div>
+{% if discipline_set %}
+<h3>登録済み</h3>
+    <form action="{% url 'discipline:discipline_delete' date.year date.month date.day %}" method="post" class="form">{% csrf_token %}
+    <table class="container">
+    {% for discipline in discipline_set %}
+      <tr class="tr3">
+        <td>
+            <input type="checkbox" name="delete" value="{{ discipline.pk }}">
+        </td>
+        <td>
+            {{ discipline.discipline }}
+        </td>
+        <td>
+        <a href="{% url 'discipline:discipline_update' discipline.pk date.year date.month date.day %}">変更</a>
+        </td>
+      </tr>
+    {% endfor %}
+    </table>
+    <input type="submit" value="チェックした項目を削除" class="delete">
+{% endif %}
+<div class="remainder2">
+    <div class="square-eye"></div>
+</div>
+<div class="push"></div>
+{% endblock %}

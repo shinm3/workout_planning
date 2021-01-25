@@ -1,0 +1,149 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'home.css' %}">
+{% endblock %}
+
+{% block title %}home{% endblock %}
+
+{% block content %}
+{% include 'base2.html' %}
+    <a href="{% url 'home:home' week_previous.year week_previous.month  week_previous.day %}">前週</a>
+    &lt; {{ week_first | date:"Y/m/d" }}〜{{ week_last | date:"Y/m/d" }} &gt;
+    <a href="{% url 'home:home' week_next.year week_next.month  week_next.day %}">次週</a>
+    <!--<a href="{% url 'tr_calendar:month_with_schedule' %}">月間カレンダーへ</a>-->
+    <table class="container table1">
+        <thead>
+        <tr class="tr1">
+            {% for day, name in week_days_names %}
+                {% if now == day %}
+                    <th class="th1 today">
+                    <div class="week_today">
+                {% else %}
+                    <th class="th1">
+                    <div class="week">
+                {% endif %}
+                {{ day | date:"m/d" }}({{ name }})
+                    </div>
+                    </th>
+            {% endfor %}
+        </tr>
+        </thead>
+        <tbody>
+            {% if week_day_schedules %}
+            {% for schedules in week_day_schedules.values %}
+                <tr class="tr1">
+                    {% for s in schedules %}
+                    {% if forloop.counter == today_num and now in week_days %}
+                        <td class="td1 tr_today">
+                        {% if s is None %}
+                                <img src="{% static 'media/media/off.png' %}" width=100% alt="オフ">
+                        {% elif s == 'temporary' %}
+                                <img src="{% static 'media/media/empty.png' %}" width=100% alt="空">
+                        {% else %}
+                            <img src="{% static s.get_image_url %}" width=100% alt="{{ s.part }}" class="bright">
+                        {% endif %}
+                    {% elif s == 'temporary' %}
+                        <td class="td1">
+                            <img src="{% static 'media/media/empty.png' %}" width=100% alt="空" class="dark">
+                    {% elif s is None %}
+                        <td class="td1">
+                            <img src="{% static 'media/media/off.png' %}" width=100% alt="オフ" class="off">
+                    {% else %}
+                            <td class="td1 tr_day">
+                                <img src="{% static s.get_image_url %}" width=100% alt="{{ s.part }}" class="dark">
+
+                    {% endif %}
+                    </td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+            {% else %}
+                <tr class="tr1">
+                {% with ''|center:7 as range %}
+                    {% for _ in range %}
+                            <td class="td1">
+                                <img src="{% static 'media/media/off.png' %}" width=100% alt="オフ" class="off">
+                            </td>
+                    {% endfor %}
+                {% endwith %}
+                </tr>
+            {% endif %}
+        </tbody>
+    </table>
+    <div class="container contain">
+      <div class="square-eye">
+        <div class="character">
+            <img src="{% static 'media/media/character' %}{{ character.number }}.png" alt="キャラクター">
+        </div>
+        <div class="chatting">
+            <div class="says">
+                    {% include character_serif %}
+            </div>
+        </div>
+
+        <div class="today-schedule">
+            <table class="table2">
+                <thead>
+                    <tr>
+                        <th colspan="2" class="th2"><span>Today's workout</span></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% if today_schedules %}
+                        {% with ''|center:5 as range %}
+                            {% for _ in range %}
+                                {% if forloop.counter <= today_schedules|length %}
+                                    {% if forloop.counter == 1  %}
+                                    {% for today_schedule in today_schedules %}
+                                        <tr class="tr2">
+                                            <td class="count">
+                                                {{ forloop.counter }}
+                                            </td>
+                                            <td class="td2">
+                                                <img src="{% static today_schedule.get_image_url %}" alt="{{ today_schedule.part }}" class="bright">
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    {% endif %}
+                                {% else %}
+                                    <tr class="tr2">
+                                        <td class="count">
+                                                {{ forloop.counter }}
+                                        </td>
+                                        <td class="td2">
+                                            <img src="{% static 'media/media/empty.png' %}" width=100% alt="空" class="dark">
+                                        </td>
+                                    </tr>
+                                {% endif %}
+                            {% endfor %}
+                        {% endwith %}
+                    {% else %}
+                    {% with ''|center:5 as range %}
+                        {% for _ in range %}
+                        <tr class="tr2">
+                            <td class="count">
+                                {{ forloop.counter }}
+                            </td>
+                            <td class="td2">
+                                <img src="{% static 'media/media/off.png' %}" width=100% alt="オフ" class="off">
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    {% endwith %}
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+      </div>
+    </div>
+    <hr class="hr_grad">
+    <div class="container btn-wrapper">
+        <div class="btn-contain">
+            <a href="{% url 'routine:list' %}" class="btn">ルーティン設定</a>
+            <a href="{% url 'tr_calendar:month_with_schedule' %}" class="btn">月間カレンダー</a>
+        </div>
+    </div>
+    <div class="push"></div>
+{% endblock %}

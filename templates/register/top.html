@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'top.css' %}">
+{% endblock %}
+
+{% block title %}トップ{% endblock %}
+
+{% block content %}
+<div class="remainder">
+    <div class="square-eye">
+        <h2>ワークアウトスケジュール管理アプリ</h2>
+        <h1>Workout Plan</h1>
+        <div class="positioning">
+            <a href="{% url 'register:login' %}" class="btn btn-c"><span>ログイン、またはユーザー登録</span></a>
+        </div>
+    </div>
+</div>
+<div class="push"></div>
+{% endblock %}

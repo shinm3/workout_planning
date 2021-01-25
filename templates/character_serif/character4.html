@@ -1,0 +1,23 @@
+<p>
+    {% if today_schedules %}
+        {% if today_schedules|length == 1 %}
+            {% for today_schedule in today_schedules %}
+                {% if today_schedule.part == '全身' %}
+                    マジ卍
+                {% elif today_schedule.part == '上半身' %}
+                    べびたっぴ！
+                {% else %}
+                    きゅんです
+                {% endif %}
+            {% endfor %}
+        {% elif today_schedules|length <= 3 %}
+            ぴえんこえてぱおん
+        {% elif today_schedules|length <= 4 %}
+            推ししか勝たん
+        {% else %}
+            おしゃピクしたいなぁ
+        {% endif %}
+    {% else %}
+        タピる？
+    {% endif %}
+</p>

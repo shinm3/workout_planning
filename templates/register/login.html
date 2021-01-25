@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'login.css' %}">
+{% endblock %}
+
+{% block title %}トップ{% endblock %}
+
+{% block content %}
+{% include 'base2.html' %}
+<table class="container">
+    <thead>
+        <tr>
+            <th class="th1">
+                <p class="head">ログイン</p>
+            </th>
+            <th class="th1">
+                <p class="head">ユーザー登録</p>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                <form action="{% url 'register:login' %}" method="POST">
+                {{ form.non_field_errors }}
+                {% for field in form %}
+                    <hr>
+                    {{ field }}
+                    {{ field.errors }}
+                    <hr>
+                {% endfor %}
+                <button type="submit" class="btn">ログイン</button>
+                <a href="{% url 'register:password_reset' %}" class="text1">パスワードを忘れた方はこちら</a>
+                <input type="hidden" name="next" value="{{ next }}" />
+                {% csrf_token %}
+            </form>
+            </td>
+             <td class="td1">
+                 <p class="text2">● 新規ユーザー登録はこちら</p>
+                <a href="{% url 'register:user_data_input' %}" class="btn">新規登録</a>
+             </td>
+        </tr>
+    </tbody>
+</table>
+
+<div class="remainder">
+    <div class="square-eye"></div>
+</div>
+{% endblock %}

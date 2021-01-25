@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'day_schedule_discipline.css' %}">
+{% endblock %}
+
+{% block title %}week_list{% endblock %}
+
+{% block content %}
+{% include 'base2.html' %}
+<a href="{% url 'tr_calendar:day_schedule_detail' date.year date.month date.day 1 %}">詳細画面に戻る</a>
+<h2>{{ date | date:"Y年m月d日" }}</h2>
+{% for discipline in discipline_set %}
+<h3>種目{{ forloop.counter }}　：　{{ discipline.discipline }}</h3>
+  <div class="table-contents">
+    <table class="container">
+        <tr>
+            <td></td>
+            <th>セット1</th>
+            <th>セット2</th>
+            <th>セット3</th>
+            <th>セット4</th>
+            <th>セット5</th>
+            <th>セット6</th>
+            <th>セット7</th>
+            <th>セット8</th>
+            <th>セット9</th>
+            <th>セット10</th>
+        </tr>
+        <tr>
+            <th class="">重量</th>
+            {% if discipline.weight_1 == 0 %}<td>自重</td>{% elif discipline.weight_1 %}<td>{{ discipline.weight_1 }}kg</td>{% else %}<td></td>{% endif %}
+            {% if discipline.weight_2 == 0 %}<td>自重</td>{% elif discipline.weight_2 %}<td>{{ discipline.weight_2 }}kg</td>{% else %}<td></td>{% endif %}
+            {% if discipline.weight_3 == 0 %}<td>自重</td>{% elif discipline.weight_3 %}<td>{{ discipline.weight_3 }}kg</td>{% else %}<td></td>{% endif %}
+            {% if discipline.weight_4 == 0 %}<td>自重</td>{% elif discipline.weight_4 %}<td>{{ discipline.weight_4 }}kg</td>{% else %}<td></td>{% endif %}
+            {% if discipline.weight_5 == 0 %}<td>自重</td>{% elif discipline.weight_5 %}<td>{{ discipline.weight_5 }}kg</td>{% else %}<td></td>{% endif %}
+            {% if discipline.weight_6 == 0 %}<td>自重</td>{% elif discipline.weight_6 %}<td>{{ discipline.weight_6 }}kg</td>{% else %}<td></td>{% endif %}
+            {% if discipline.weight_7 == 0 %}<td>自重</td>{% elif discipline.weight_7 %}<td>{{ discipline.weight_7 }}kg</td>{% else %}<td></td>{% endif %}
+            {% if discipline.weight_8 == 0 %}<td>自重</td>{% elif discipline.weight_8 %}<td>{{ discipline.weight_8 }}kg</td>{% else %}<td></td>{% endif %}
+            {% if discipline.weight_9 == 0 %}<td>自重</td>{% elif discipline.weight_9 %}<td>{{ discipline.weight_9 }}kg</td>{% else %}<td></td>{% endif %}
+            {% if discipline.weight_10 == 0 %}<td>自重</td>{% elif discipline.weight_10 %}<td>{{ discipline.weight_10 }}kg</td>{% else %}<td></td>{% endif %}
+        </tr>
+        <tr>
+            <th>回数</th>
+            {% if discipline.times_1 %}<td>{{ discipline.times_1 }}reps</td>{% else %}<td></td>{% endif %}
+            {% if discipline.times_2 %}<td>{{ discipline.times_2 }}reps</td>{% else %}<td></td>{% endif %}
+            {% if discipline.times_3 %}<td>{{ discipline.times_3 }}reps</td>{% else %}<td></td>{% endif %}
+            {% if discipline.times_4 %}<td>{{ discipline.times_4 }}reps</td>{% else %}<td></td>{% endif %}
+            {% if discipline.times_5 %}<td>{{ discipline.times_5 }}reps</td>{% else %}<td></td>{% endif %}
+            {% if discipline.times_6 %}<td>{{ discipline.times_6 }}reps</td>{% else %}<td></td>{% endif %}
+            {% if discipline.times_7 %}<td>{{ discipline.times_7 }}reps</td>{% else %}<td></td>{% endif %}
+            {% if discipline.times_8 %}<td>{{ discipline.times_8 }}reps</td>{% else %}<td></td>{% endif %}
+            {% if discipline.times_9 %}<td>{{ discipline.times_9 }}reps</td>{% else %}<td></td>{% endif %}
+            {% if discipline.times_10 %}<td>{{ discipline.times_10 }}reps</td>{% else %}<td></td>{% endif %}
+        </tr>
+    </table>
+  </div>
+    {% if discipline.remarks %}
+        <div class="ex"></div>
+        <p class="remarks">備考　：　{{ discipline.remarks }}</p>
+    {% endif %}
+{% endfor %}
+<div class="under_the_frame"></div>
+<form action="{% url 'discipline:discipline_create' body_part.pk date.year date.month　date.day 0 %}" method="get" class="container position border_double">
+    <input type="submit" name="edit" value="編集する" class="edit">
+</form>
+<div class="remainder">
+    <div class="square-eye"></div>
+</div>
+<div class="push"></div>
+{% endblock %}

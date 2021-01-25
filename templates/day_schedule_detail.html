@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'day_schedule_detail.css' %}">
+{% endblock %}
+
+{% block title %}routine_create{% endblock %}
+
+{% block content %}
+{% include 'base2.html' %}
+
+<a href="{% url 'tr_calendar:month_with_schedule' %}">カレンダーに戻る</a>
+<!-- 選択された曜日を表示 -->
+<div class="enclose">
+<h2>{{ select_day | date:"Y年m月d日" }}</h2>
+
+<!-- 選択された日付の曜日,日付指定オブジェクトを表示する -->
+    <table class="container">
+    {% for bp_objects_judge_discipline in bp_objects_judge_discipline_list %}
+      <tr>
+        <td class="counter">
+            <p>{{ forloop.counter }}部位目</p>
+        </td>
+        <td>
+            <img src="{% static bp_objects_judge_discipline.0.get_image_url %}" width=100% alt="{{ bp_objects_judge_discipline.0.part }}">
+        </td>
+        <td class="edit">
+            {% if bp_objects_judge_discipline.1 %}
+            <a href="{% url 'discipline:day_schedule_discipline' bp_objects_judge_discipline.0.pk select_day.year select_day.month　select_day.day %}">
+                種目確認
+            </a>
+            {% else %}
+            <a href="{% url 'discipline:discipline_create' bp_objects_judge_discipline.0.pk select_day.year select_day.month　select_day.day 1 %}">
+                種目登録
+            </a>
+            {% endif %}
+        </td>
+      </tr>
+    {% endfor %}
+    </table>
+</div>
+<form action="{% url 'tr_calendar:day_schedule_create' select_day.year select_day.month　select_day.day %}" method="get" class="container position border_double">
+    <input type="submit" name="edit" value="編集する" class="edit2">
+</form>
+<div class="remainder">
+    <div class="square-eye"></div>
+</div>
+<div class="push"></div>
+{% endblock %}

@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'user_detail.css' %}">
+{% endblock %}
+
+{% block title %}フォーム内容確認画面{% endblock %}
+
+{% block content %}
+{% include 'base2.html' %}
+<p class="description">● 入力内容のご確認</p>
+<div class="remainder">
+    <div class="square-eye">
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th>ハンドルネーム</th>
+                    <td>{{ profile_form.name.value }}</td>
+                </tr>
+                <tr>
+                    <th>姓</th>
+                    <td>{{ user_form.last_name.value }}</td>
+                </tr>
+                <tr>
+                    <th>名</th>
+                    <td>{{ user_form.first_name.value }}</td>
+                </tr>
+                <tr>
+                    <th>性別</th>
+                    <!--profile.get_gender_displayによりDB値ではなくchoicesで設定した読みやすい値の方を呼び出す-->
+                    {% if profile_form.gender.value == '1' %}
+                    <td>女性</td>
+                    {% else %}
+                    <td>男性</td>
+                    {% endif %}
+                </tr>
+                <tr>
+                    <th>生年月日</th>
+                    <td>{{ profile_form.birthday.value }}</td>
+                </tr>
+                <tr>
+                    <th>メールアドレス</th>
+                    <td>{{ user_form.email.value }}</td>
+                </tr>
+                <tr>
+                    <th>電話番号</th>
+                    <td>{{ profile_form.phone.value }}</td>
+                </tr>
+                <tr>
+                    <th>パスワード</th>
+                    <td>{{ user_form.password.value }}</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="border_double">
+            <a href="{% url 'register:user_data_input' %}" class="update btn btn-primary btn-lg"><<修正する</a>
+            <form action="{% url 'register:user_create' %}" method="POST" class="register">
+                <button type="submit" class="update btn btn-primary btn-lg">登録する>></button>
+                {% csrf_token %}
+            </form>
+        </div>
+
+    </div>
+</div>
+<div class="push"></div>
+{% endblock %}

@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'character_selection.css' %}">
+{% endblock %}
+
+{% block title %}character_selection{% endblock %}
+
+{% block content %}
+{% include 'base2.html' %}
+<div class="remainder">
+    <div class="square-eye">
+        <p class="description">ホームに表示するキャラクターを選択してください</p>
+        <div class="container">
+            <div class="row">
+                <div class="character col-md-6">
+                    <form method="post" class="form">{% csrf_token %}
+                        <p>1.ボディビルダー</p>
+                        <input type="hidden" name="name" value="ボディビルダー">
+                        <div class="img_wrap">
+                            <input type="image" src="../static/media/media/character1.png" class="image" width="90%" alt="キャラクター1">
+                        </div>
+                        <input type="hidden" name="character" value="1">
+                    </form>
+                </div>
+                <div class="character col-md-6">
+                    <form method="post" class="form">{% csrf_token %}
+                        <p>2.フィジーカー</p>
+                        <input type="hidden" name="name" value="フィジーカー">
+                        <div class="img_wrap">
+                            <input type="image" src="../static/media/media/character2.png" class="image" width="90%" alt="キャラクター2">
+                        </div>
+                        <input type="hidden" name="character" value="2">
+                    </form>
+                </div>
+            </div>
+            <div class="row">
+                <div class="character col-md-6">
+                    <form method="post" class="form">{% csrf_token %}
+                        <p>3.筋トレ女子</p>
+                        <input type="hidden" name="name" value="筋トレ女子">
+                        <div class="img_wrap">
+                            <input type="image" src="../static/media/media/character3.png" class="image" width="90%" alt="キャラクター3">
+                        </div>
+                        <input type="hidden" name="character" value="3">
+                    </form>
+                </div>
+                <div class="character col-md-6">
+                    <form method="post" class="form">{% csrf_token %}
+                        <p>4.ツインテJK</p>
+                        <input type="hidden" name="name" value="ツインテJK">
+                        <div class="img_wrap">
+                            <input type="image" src="../static/media/media/character4.png" class="image" width="90%" alt="キャラクター4">
+                        </div>
+                        <input type="hidden" name="character" value="4">
+                    </form>
+                </div>
+            </div>
+            <div class="push"></div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

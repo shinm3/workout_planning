@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'term_decision.css' %}">
+{% endblock %}
+
+{% block title %}term{% endblock %}
+
+{% block content %}
+{% include 'base2.html' %}
+
+<p>ルーティンの期間を指定してください</p>
+<form method="post" class="form">{% csrf_token %}
+    <table class="container">
+        <tr>
+            <td>
+                {{ form.as_p }}
+            </td>
+        </tr>
+    </table>
+    <input type="submit" value="決定" class="decision">
+</form>
+<div class="remainder">
+    <div class="square-eye"></div>
+</div>
+<div class="push"></div>
+{% endblock %}

@@ -1,0 +1,133 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'create_update.css' %}">
+{% endblock %}
+
+{% block title %}routine_create{% endblock %}
+
+{% block content %}
+{% include 'base2.html' %}
+
+<a href="{% url 'routine:list' %}">曜日選択画面に戻る</a>
+<!-- 選択された曜日を表示 -->
+<div class="enclose">
+<h2>{{ wd }}</h2>
+<form method="post" class="form">{% csrf_token %}
+    <input type="hidden" name="week" value="{{ wd }}">
+    <!-- 部位選択フォーム -->
+    <table class="container">
+    <tr>
+      <th colspan="2" class="heading">部位登録フォーム ※5部位まで</th>
+    </tr>
+    <tr>
+      <th><label for="part">部位</label></th>
+      <td>
+      <select name="part" id="part" onchange="createPart(this.value);">
+        {% for field in form.part %}
+          {{ field }}
+        {% endfor %}
+      </select>
+      </td>
+    </tr>
+    <input type="button" value="部位の詳細を指定する" id="btn1" onclick="clickBtn1();" />
+    <!-- 部位の詳細選択フォーム※部位の選択がなければ選択不可。部位選択があればそれに応じて項目が変化する -->
+    <tr id="p1">
+      <th><label for="partList">部位の詳細</label></th>
+      <td>
+      <select name="detail_part" id="partList" disabled>
+        <option disabled selected>部位の詳細</option>
+      </select>
+      </td>
+    </tr>
+    </table>
+    <label class="continue"><input type="checkbox" name="continue">他の部位を続けて登録する</label>
+    <input type="submit" value="登録" class="register">
+    {% if error %}
+    <div class="error">{{ error }}</div>
+    {% endif %}
+    {% if form.errors %}
+      <div class="error">
+        {{ form.non_field_errors }}
+      </div>
+    {% endif %}
+</form>
+</div>
+<!-- 選択された曜日のデータが他にあればそれを表示する -->
+{% if bp_objects %}
+<h3>登録済み</h3>
+<form action="{% url 'routine:delete' num %}" method="post" class="form">{% csrf_token %}
+<table class="container">
+{% for bp_object in bp_objects %}
+    <input type="hidden" name="form_num" value="{{ bp_object.form_num }}">
+    <tr>
+        <td>
+            <input type="checkbox" name="delete" value="{{ bp_object.pid }}">
+        </td>
+        <td>
+                        {{ bp_object.part }}
+                        {% if bp_object.detail_part %}
+                        ：{{ bp_object.detail_part　}}
+                        {% endif %}
+        </td>
+        <td>
+            <a href="{% url 'routine:update' num bp_object.pid bp_object.form_num %}">変更</a>
+        </td>
+    </tr>
+{% endfor %}
+</table>
+<input type="submit" value="チェックした項目を削除" class="delete">
+</form>
+{% endif %}
+<div class="remainder">
+    <div class="square-eye"></div>
+</div>
+<div class="push"></div>
+<script>
+'use strict';
+
+//詳細部位の定数
+const detailPart =
+      {
+        "胸": ["上部", "中部", "下部"],
+        "背中": ["広背筋", "僧帽筋中部"],
+        "肩": ["前部", "側部", "後部", "僧帽筋上部"],
+        "腕": ["二頭", "三頭", "前腕"],
+        "脚": ["四頭", "ハム",　"臀部", "カーフ"],
+      };
+
+//選択された部位に対応した詳細部位を選択できるようにする関数
+function createPart(selectPart){
+
+  let partList = document.getElementById('partList');
+  partList.disabled = false;
+  partList.innerHTML = '';
+  let option = document.createElement('option');
+  option.innerHTML = '部位の詳細を選択してください。';
+  option.defaultSelected = true;
+  option.disabled = true;
+  partList.appendChild(option);
+
+  detailPart[selectPart].forEach( part => {
+    let option = document.createElement('option');
+    option.innerHTML = part;
+    partList.appendChild(option);
+  });
+}
+
+//通常時は部位の詳細選択フォームを非表示にする
+document.getElementById("btn1").style.display ="none";
+
+//部位の詳細を指定するボタンを押して部位の詳細選択フォームを表示する関数
+function clickBtn1(){
+	const p1 = document.getElementById("p1");
+
+	if(p1.style.display=="block"){
+		p1.style.display ="none";
+	}else{
+		p1.style.display ="block";
+	}
+}
+</script>
+{% endblock %}
