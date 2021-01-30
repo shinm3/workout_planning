@@ -162,7 +162,7 @@ class Provisional:
             delete_ex_form_data = [k for k, v in self.ex_form_data.items() if v['pid'] == int(pk)]
             delete_update_form_data = [k for k, v in self.update_form_data.items() if v['pid'] == int(pk)]
             delete_create_form_data = [k for k, v in self.create_form_data.items() if v['pid'] == int(pk)]
-            print(delete_create_form_data)
+
             if delete_ex_form_data:
                 data = self.ex_form_data.pop(delete_ex_form_data[0])
                 self.delete_data[delete_data] = data['pid']

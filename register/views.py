@@ -137,7 +137,7 @@ def user_create(request):
 
         # ユーザーモデルにはメールアドレスフィールドがあるため、send_mailではなく
         # 宛先不要のuser.email_userを使う
-        user.email_user(subject, message)
+        user.email_user(subject, message,)
         return redirect('register:user_create_done')
 
     context = {

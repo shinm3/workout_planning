@@ -33,7 +33,6 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'bootstrap_datepicker_plus',
     'register.apps.RegisterConfig',
     'tr_calendar.apps.TrCalendarConfig',
     'home.apps.HomeConfig',
@@ -144,5 +143,18 @@ LOGIN_URL = 'register:login'
 LOGIN_REDIRECT_URL = 'home:home'
 
 # メールをコンソールに表示するための設定
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'shintamafitness@gmail.com'
+EMAIL_HOST_PASSWORD = 'fagzkybgrsobuxob'   # gmailの2段階認証のアプリパス
+EMAIL_USE_TLS = True
+
+
+SECRET_KEY = 'l*hg=bl0p9-9*6vd3lecl7#-#=x1(&z-_2*re&!-sfktp8&24w'
+
+#if not DEBUG:
+    #SECRET_KEY = os.environ['SECRET_KEY']

@@ -9,7 +9,7 @@ import datetime
 
 def discipline_create(request, pk, year, month, day, new):
     """ 新規に指定部位の種目を作成します。 """
-    print(new)
+
     date = datetime.date(year=year, month=month, day=day)
     body_part = get_object_or_404(BodyPart, pk=pk)
     discipline_set = body_part.discipline_set.filter(date=date)
