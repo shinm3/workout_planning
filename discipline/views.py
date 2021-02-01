@@ -27,7 +27,7 @@ def discipline_create(request, pk, year, month, day, new):
                 return redirect('discipline:day_schedule_discipline',
                                 pk=pk, year=year, month=month, day=day)
             else:
-                return redirect('discipline:discipline_create', pk=pk, year=year, month=month, day=day)
+                return redirect('discipline:discipline_create', pk=pk, year=year, month=month, day=day, new=new)
     else:
         form = DisciplineForm()
 
@@ -71,6 +71,7 @@ def day_schedule_discipline(request, pk, year, month, day):
 def discipline_update(request, pk, year, month, day):
     """ 指定部位の種目を更新します。 """
 
+    new = 0
     date = datetime.date(year=year, month=month, day=day)
     discipline = get_object_or_404(Discipline, pk=pk)
     body_part_pk = discipline.body_part.pk
@@ -83,7 +84,7 @@ def discipline_update(request, pk, year, month, day):
         form = DisciplineForm(request.POST, instance=discipline)
         if form.is_valid():
             form.save()
-            return redirect('discipline:discipline_create', pk=body_part_pk, year=year, month=month, day=day)
+            return redirect('discipline:discipline_create', pk=body_part_pk, year=year, month=month, day=day, new=new)
     else:
         form = DisciplineForm(instance=discipline)
 
@@ -94,6 +95,7 @@ def discipline_update(request, pk, year, month, day):
         'year': year,
         'month': month,
         'day': day,
+        'new': new,
         'page_title': page_title,
         'breadcrumb_name': '種目変更',
     })
@@ -111,4 +113,11 @@ def discipline_delete(request, year, month, day):
     del_objects = Discipline.objects.filter(pk__in=del_pk)
     del_objects.delete()
 
-    return redirect('discipline:discipline_create', pk=body_part_pk, year=year, month=month, day=day)
+    new = 1
+    date = datetime.date(year=year, month=month, day=day)
+    body_part = get_object_or_404(BodyPart, pk=body_part_pk)
+    discipline_set = body_part.discipline_set.filter(date=date)
+    if discipline_set:
+        new = 0
+
+    return redirect('discipline:discipline_create', pk=body_part_pk, year=year, month=month, day=day, new=new)

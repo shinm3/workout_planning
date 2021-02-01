@@ -96,14 +96,48 @@
         border-right: 3px solid #9b9aff;
         border-left: 3px solid #9b9aff;
     }
+
+    .hidden_box {
+        border-left: 3px solid #9b9aff;
+        border-right: 3px solid #9b9aff;
+    }
+    /*ボタン装飾*/
+    .hidden_box label {
+        font-weight: bold;
+        cursor :pointer;
+        padding: 0 0 0 10px;
+    }
+
+    /*ボタンホバー時*/
+    .hidden_box label:hover {
+        color: #3a36ff;
+    }
+
+    /*チェックは見えなくする*/
+    .hidden_box input {
+        display: none;
+    }
+
+    /*中身を非表示にしておく*/
+    .hidden_box .hidden_show {
+        height: 0;
+        padding: 0;
+        overflow: hidden;
+        opacity: 0;
+        transition: 0.8s;
+    }
+
+    /*クリックで中身表示*/
+    .hidden_box input:checked ~ .hidden_show {
+        padding: 10px 0;
+        height: auto;
+        opacity: 1;
+    }
     .remarks {
-        line-height: 70px;
+        line-height: 25px;
         margin: 0;
         padding-left: 30px;
-        border-top: dashed 1px #9b9aff;
         border-bottom: dashed 1px #9b9aff;
-        border-right: 3px solid #9b9aff;
-        border-left: 3px solid #9b9aff;
     }
     .under_the_frame {
         height: 20px;

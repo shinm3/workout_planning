@@ -13,9 +13,10 @@
     &lt; {{ week_first | date:"Y/m/d" }}〜{{ week_last | date:"Y/m/d" }} &gt;
     <a href="{% url 'home:home' week_next.year week_next.month  week_next.day %}">次週</a>
     <!--<a href="{% url 'tr_calendar:month_with_schedule' %}">月間カレンダーへ</a>-->
-    <table class="container table1">
+    <div class="table-contents">
+      <table class="container table1">
         <thead>
-        <tr class="tr1">
+          <tr class="tr1">
             {% for day, name in week_days_names %}
                 {% if now == day %}
                     <th class="th1 today">
@@ -28,7 +29,7 @@
                     </div>
                     </th>
             {% endfor %}
-        </tr>
+          </tr>
         </thead>
         <tbody>
             {% if week_day_schedules %}
@@ -38,18 +39,18 @@
                     {% if forloop.counter == today_num and now in week_days %}
                         <td class="td1 tr_today">
                         {% if s is None %}
-                                <img src="{% static 'media/media/off.png' %}" width=100% alt="オフ">
+                                <img src="{% static 'media/off.png' %}" width=100% alt="オフ">
                         {% elif s == 'temporary' %}
-                                <img src="{% static 'media/media/empty.png' %}" width=100% alt="空">
+                                <img src="{% static 'media/empty.png' %}" width=100% alt="空">
                         {% else %}
                             <img src="{% static s.get_image_url %}" width=100% alt="{{ s.part }}" class="bright">
                         {% endif %}
                     {% elif s == 'temporary' %}
                         <td class="td1">
-                            <img src="{% static 'media/media/empty.png' %}" width=100% alt="空" class="dark">
+                            <img src="{% static 'media/empty.png' %}" width=100% alt="空" class="dark">
                     {% elif s is None %}
                         <td class="td1">
-                            <img src="{% static 'media/media/off.png' %}" width=100% alt="オフ" class="off">
+                            <img src="{% static 'media/off.png' %}" width=100% alt="オフ" class="off">
                     {% else %}
                             <td class="td1 tr_day">
                                 <img src="{% static s.get_image_url %}" width=100% alt="{{ s.part }}" class="dark">
@@ -64,18 +65,19 @@
                 {% with ''|center:7 as range %}
                     {% for _ in range %}
                             <td class="td1">
-                                <img src="{% static 'media/media/off.png' %}" width=100% alt="オフ" class="off">
+                                <img src="{% static 'media/off.png' %}" width=100% alt="オフ" class="off">
                             </td>
                     {% endfor %}
                 {% endwith %}
                 </tr>
             {% endif %}
         </tbody>
-    </table>
+      </table>
+    </div>
     <div class="container contain">
       <div class="square-eye">
         <div class="character">
-            <img src="{% static 'media/media/character' %}{{ character.number }}.png" alt="キャラクター">
+            <img src="{% static 'media/character' %}{{ character.number }}.png" alt="キャラクター">
         </div>
         <div class="chatting">
             <div class="says">
@@ -113,7 +115,7 @@
                                                 {{ forloop.counter }}
                                         </td>
                                         <td class="td2">
-                                            <img src="{% static 'media/media/empty.png' %}" width=100% alt="空" class="dark">
+                                            <img src="{% static 'media/empty.png' %}" width=100% alt="空" class="dark">
                                         </td>
                                     </tr>
                                 {% endif %}
@@ -127,7 +129,7 @@
                                 {{ forloop.counter }}
                             </td>
                             <td class="td2">
-                                <img src="{% static 'media/media/off.png' %}" width=100% alt="オフ" class="off">
+                                <img src="{% static 'media/off.png' %}" width=100% alt="オフ" class="off">
                             </td>
                         </tr>
                         {% endfor %}

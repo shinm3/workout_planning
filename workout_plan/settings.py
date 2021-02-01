@@ -11,10 +11,11 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
-try:
-    from .local_settings import *
-except ImportError:
-    pass
+import environ
+
+
+env = environ.Env()
+env.read_env('.env')
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -23,11 +24,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
 
 
 # Application definition
@@ -83,10 +85,7 @@ WSGI_APPLICATION = 'workout_plan.wsgi.application'
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+    'default': env.db(),
 }
 
 
@@ -129,32 +128,55 @@ USE_TZ = True
 # カスタマイズしたUserモデルをデフォルトで使用するため宣言
 AUTH_USER_MODEL = 'register.User'
 
-STATIC_URL = '/static/'
+STATIC_URL = env('STATIC_URL')
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'static', 'media')
-
 MEDIA_URL = '/media/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 LOGIN_URL = 'register:login'
 LOGIN_REDIRECT_URL = 'home:home'
 
-# メールをコンソールに表示するための設定
-# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_BACKEND = env('EMAIL_BACKEND')
 
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'shintamafitness@gmail.com'
-EMAIL_HOST_PASSWORD = 'fagzkybgrsobuxob'   # gmailの2段階認証のアプリパス
+EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')  # gmailの2段階認証のアプリパス
 EMAIL_USE_TLS = True
 
 
-SECRET_KEY = 'l*hg=bl0p9-9*6vd3lecl7#-#=x1(&z-_2*re&!-sfktp8&24w'
+if not DEBUG:
+    INSTALLED_APPS = [
+        'register.apps.RegisterConfig',
+        'tr_calendar.apps.TrCalendarConfig',
+        'home.apps.HomeConfig',
+        'routine.apps.RoutineConfig',
+        'discipline.apps.DisciplineConfig',
+        'character.apps.CharacterConfig',
+        'django.contrib.admin',
+        'django.contrib.auth',
+        'django.contrib.contenttypes',
+        'django.contrib.sessions',
+        'django.contrib.messages',
+        'django.contrib.staticfiles',
+        'storages',
+    ]
 
-#if not DEBUG:
-    #SECRET_KEY = os.environ['SECRET_KEY']
+    AWS_ACCESS_KEY_ID = env('AWS_ACCESS_KEY_ID')
+    AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY')
+    AWS_STORAGE_BUCKET_NAME = 'workout-plan-static'
+    AWS_S3_CUSTOM_DOMAIN = '%s.s3-ap-northeast-1.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+    AWS_S3_OBJECT_PARAMETERS = {
+        'CacheControl': 'max-age=86400',
+    }
+    AWS_LOCATION = 'static'
+    AWS_DEFAULT_ACL = None
+    STATIC_URL = 'https://%s/%s/' % (AWS_S3_CUSTOM_DOMAIN, AWS_LOCATION)
+    STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+    DEFAULT_FILE_STORAGE = 'localupload.storage_backends.MediaStorage'

@@ -31,5 +31,5 @@ class DisciplineForm(forms.ModelForm):
             'remarks',
         ]
         widgets = {
-            'remarks': forms.Textarea(attrs={'rows': 3, 'cols': 50}),
+            'remarks': forms.Textarea(attrs={'rows': 3, 'cols': 30}),
         }

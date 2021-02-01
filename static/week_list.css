@@ -166,3 +166,20 @@
 .push {
     height: 60px;
 }
+
+@media (max-width:767px) {
+    .table-contents {
+        overflow-x: scroll;
+        width: 100%;
+    }
+    table {
+        white-space: nowrap;
+        min-width: 180%;
+    }
+    th {
+        font-size: 25px;
+    }
+    td {
+        font-size: 15px;
+    }
+ }

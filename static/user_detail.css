@@ -60,3 +60,22 @@
 .push {
     height: 60px;
 }
+
+@media (max-width:767px) {
+
+    .table td, .table th {
+        vertical-align: middle;
+        line-height:25px;
+  }
+
+    th{
+        font-size: 15px;
+    }
+    td{
+        font-size: 15px;
+    }
+    td>a{
+        font-size: 15px;
+    }
+
+}

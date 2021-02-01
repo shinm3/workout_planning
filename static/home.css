@@ -192,7 +192,7 @@
 
     .today-schedule {
         width: 25%;
-        margin-top: 70px;
+        margin-top: 40px;
         margin-left:450px;
     }
     .table2 {
@@ -308,6 +308,20 @@
     }
 
     @media (max-width:767px) {
+        .table-contents {
+            overflow-x: scroll;
+            width: 100%;
+        }
+        table {
+            white-space: nowrap;
+            min-width: 150%;
+        }
+        th {
+            font-size: 15px;
+        }
+        td {
+            font-size: 15px;
+        }
         .week {
         font-size: 0.8em;
     }
@@ -318,19 +332,27 @@
         .th1{
         padding:5px 0;
     }
+        .contain {
+        position: relative;
+        height: 450px;
+    }
+        .contain .character img{
+            height: 400px;
+            padding-left: 30px;
+    }
         .contain .character {
             position: absolute;
             left: -65px;
             float: left;
             margin-right: 30px;
-            margin-top: -230px;
+            margin-top: -130px;
             width: 80px;
     }
 
         .chatting {
             position: absolute;
             top: -40px;
-            left: -150px;
+            left: -200px;
     }
         .says p {
         margin: 0;
@@ -344,14 +366,15 @@
     }
 
         .today-schedule {
-        width: 35%;
-        margin-top: 230px;
-        margin-left:300px;
+        width: 20%;
+        margin-top: 180px;
+        margin-left:190px;
     }
+        .td2>img {
+        width: 100px;
     }
-    .td2>img {
-        width: 130px;
-    }
+  }
+
     @media (min-width:992px) {
         .contain .character {
         float: left;
@@ -365,7 +388,7 @@
     }
         .today-schedule {
         width: 25%;
-        margin-top: 70px;
+        margin-top: 40px;
         margin-left:600px;
     }
     }
@@ -381,7 +404,7 @@
     }
     .today-schedule {
         width: 25%;
-        margin-top: 70px;
+        margin-top: 40px;
         margin-left:700px;
     }
 

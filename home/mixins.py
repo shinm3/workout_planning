@@ -98,7 +98,6 @@ class WeekWithScheduleMixin(WeekCalendarMixin):
         day_schedules = self.get_week_schedules(
             calendar_context['week_days']
         )
-        print(day_schedules)
 
         # 一週間の中で一番設定部位数が多い日の部位数を取得します
         max_count = 0

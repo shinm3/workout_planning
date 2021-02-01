@@ -124,11 +124,11 @@
     height: 60px;
 }
 
-    @media (max-width:767px) {
-        .counter> p {
+@media (max-width:767px) {
+    .counter> p {
         font-size: 2em;
     }
-        .edit> a {
-        font-size: 2em;
+    .edit> a {
+        font-size: 1.5em;
     }
-    }
+}

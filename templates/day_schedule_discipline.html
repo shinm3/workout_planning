@@ -16,17 +16,17 @@
   <div class="table-contents">
     <table class="container">
         <tr>
-            <td></td>
-            <th>セット1</th>
-            <th>セット2</th>
-            <th>セット3</th>
-            <th>セット4</th>
-            <th>セット5</th>
-            <th>セット6</th>
-            <th>セット7</th>
-            <th>セット8</th>
-            <th>セット9</th>
-            <th>セット10</th>
+            <th>セット</th>
+            <th>1</th>
+            <th>2</th>
+            <th>3</th>
+            <th>4</th>
+            <th>5</th>
+            <th>6</th>
+            <th>7</th>
+            <th>8</th>
+            <th>9</th>
+            <th>10</th>
         </tr>
         <tr>
             <th class="">重量</th>
@@ -58,7 +58,13 @@
   </div>
     {% if discipline.remarks %}
         <div class="ex"></div>
-        <p class="remarks">備考　：　{{ discipline.remarks }}</p>
+        <div class="hidden_box">
+            <label for="label{{ forloop.counter }}">備考</label>
+            <input type="checkbox" id="label{{ forloop.counter }}"/>
+            <div class="hidden_show">
+              <p class="remarks">{{ discipline.remarks }}</p>
+            </div>
+        </div>
     {% endif %}
 {% endfor %}
 <div class="under_the_frame"></div>

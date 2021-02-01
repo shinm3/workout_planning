@@ -73,7 +73,7 @@ class BodyPart(models.Model):
             file_name = IMAGES[part + detail_part]
         else:
             file_name = IMAGES[part]
-        image = f"media/media/{file_name}.png"
+        image = f"media/{file_name}.png"
         return image
 
     def judge_discipline(self, date):

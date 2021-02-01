@@ -208,27 +208,27 @@
     height: 60px;
 }
 
-    @media (max-width:767px) {
-         .table-contents {
-            overflow-x: scroll;
-            width: 100%;
+@media (max-width:767px) {
+    .table-contents {
+        overflow-x: scroll;
+        width: 100%;
     }
-        .table2 {
-            white-space: nowrap;
-            min-width: 130%;
+    .table2 {
+        white-space: nowrap;
+        min-width: 130%;
     }
-        p {
-            font-size: 13px;
+    p {
+        font-size: 13px;
     }
-        .table2 th {
-            font-size: 12px;
+    .table2 th {
+        font-size: 12px;
     }
+}
+@media (min-width:992px) {
+    .table2 th {
+        font-size: 15px;
     }
-    @media (min-width:992px) {
-        .table2 th {
-            font-size: 15px;
+    .table2 td {
+        font-size: 15px;
     }
-        .table2 td {
-            font-size: 15px;
-        }
-    }
+}

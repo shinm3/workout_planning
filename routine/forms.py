@@ -26,7 +26,6 @@ class BodyPartForm(forms.ModelForm):
         detail_part = cleaned_data.get('detail_part')
         if detail_part == '部位の詳細':
             raise forms.ValidationError("同じ部位は登録できません")
-        print(self.bp_objects)
         if self.bp_objects:
             for bp_object in self.bp_objects:
                 if part == bp_object['part'] and detail_part == bp_object['detail_part']:
