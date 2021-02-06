@@ -9,5 +9,4 @@ __pycache__
 /media
 /static/media
 /db.sqlite3
-/workout_plan/settings_local.py
 /.env
