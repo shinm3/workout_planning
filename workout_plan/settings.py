@@ -13,7 +13,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 import os
 import environ
 
-
+# 環境変数呼び出し
 env = environ.Env()
 env.read_env('.env')
 
@@ -151,25 +151,12 @@ EMAIL_USE_TLS = True
 
 
 if not DEBUG:
-    INSTALLED_APPS = [
-        'register.apps.RegisterConfig',
-        'tr_calendar.apps.TrCalendarConfig',
-        'home.apps.HomeConfig',
-        'routine.apps.RoutineConfig',
-        'discipline.apps.DisciplineConfig',
-        'character.apps.CharacterConfig',
-        'django.contrib.admin',
-        'django.contrib.auth',
-        'django.contrib.contenttypes',
-        'django.contrib.sessions',
-        'django.contrib.messages',
-        'django.contrib.staticfiles',
-        'storages',
-    ]
+    INSTALLED_APPS.append('storages')
 
     AWS_ACCESS_KEY_ID = env('AWS_ACCESS_KEY_ID')
     AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY')
     AWS_STORAGE_BUCKET_NAME = 'workout-plan-static'
+    # cloudfrontのサブドメインからのスタティックファイルの配信
     AWS_S3_CUSTOM_DOMAIN = 'static.workout-plan.work'
     #  AWS_S3_CUSTOM_DOMAIN = '%s.s3-ap-northeast-1.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
     AWS_S3_OBJECT_PARAMETERS = {
