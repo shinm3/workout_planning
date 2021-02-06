@@ -2,4 +2,4 @@
 
 {{ protocol}}://{{ domain }}{% url 'register:email_change_complete' token %}
 
-ほにゃらら
+Workout Plan
