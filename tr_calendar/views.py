@@ -1,5 +1,6 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect
 from django.views import generic
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from . import mixins
 from routine.models import BodyPart, TermDecision
@@ -20,7 +21,7 @@ IMAGES = {
 }
 
 
-class MonthWithScheduleCalendar(mixins.MonthWithScheduleMixin, generic.TemplateView):
+class MonthWithScheduleCalendar(LoginRequiredMixin, mixins.MonthWithScheduleMixin, generic.TemplateView):
     """月間カレンダーを表示するビュー"""
     template_name = 'calendar.html'
     model = BodyPart

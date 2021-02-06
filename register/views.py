@@ -8,8 +8,8 @@ from django.contrib.auth.views import (
 from django.contrib.sites.shortcuts import get_current_site
 from django.core.signing import BadSignature, SignatureExpired, loads, dumps
 from django.core.mail import send_mail
-from django.http import Http404, HttpResponseBadRequest
-from django.shortcuts import render, redirect, resolve_url
+from django.http import HttpResponseBadRequest
+from django.shortcuts import render, redirect
 from django.template.loader import render_to_string
 from django.views import generic
 from django.views.decorators.http import require_POST
@@ -216,7 +216,7 @@ class OnlyYouMixin(UserPassesTestMixin):
         return user.pk == self.kwargs['pk'] or user.is_superuser
 
 
-class UserDetail(OnlyYouMixin, generic.DetailView):
+class UserDetail(LoginRequiredMixin, OnlyYouMixin, generic.DetailView):
     model = User
     template_name = 'register/user_detail.html'
 
@@ -234,7 +234,7 @@ class UserDetail(OnlyYouMixin, generic.DetailView):
         return context
 
 
-class PasswordChange(PasswordChangeView):
+class PasswordChange(LoginRequiredMixin, PasswordChangeView):
     """パスワード変更ビュー"""
     form_class = MyPasswordChangeForm
     success_url = reverse_lazy('register:password_change_done')
@@ -246,7 +246,7 @@ class PasswordChange(PasswordChangeView):
         return context
 
 
-class PasswordChangeDone(PasswordChangeDoneView):
+class PasswordChangeDone(LoginRequiredMixin, PasswordChangeDoneView):
     """パスワード変更しましたと表示するだけ"""
     template_name = 'register/password_change_done.html'
 
@@ -268,6 +268,7 @@ class PasswordReset(PasswordResetView):
         context = super().get_context_data(**kwargs)  # 継承元のメソッドを呼び出す
         context["page_title"] = "パスワード再発行"
         return context
+
 
 class PasswordResetDone(PasswordResetDoneView):
     """パスワード変更用URLを送りましたページ※忘れた時の処理"""
@@ -431,45 +432,3 @@ class NameChangeDone(LoginRequiredMixin, generic.TemplateView):
         context = super().get_context_data(**kwargs)  # 継承元のメソッドを呼び出す
         context["page_title"] = "アカウント情報"
         return context
-
-# class UserCreate(generic.CreateView):
-#    """ユーザー仮登録"""
-#    template_name = 'register/user_create.html'
-#    form_class = UserCreateForm
-
-#    def form_valid(self, form):
-#        """仮登録と本登録用メールの発行."""
-        # 仮登録と本登録の切り替えは、is_active属性を使うと簡単です。
-        # 仮登録の段階なので、is_activeをFalseにします。
-        # 退会処理も、is_activeをFalseにするだけにしておくと捗ります。
-#        user = form.save(commit=False)
-#        user.is_active = False
-#        user.save()
-
-        # アクティベーションURLの送付
-        # プロトコルやドメインを取得しています。
-        # self.request.schemeでプロトコルを取得（httpsなど）
-        # django.core.signing.dumpを使うことで、tokenを生成しています。
-        # これはsettings.pyのSECRET_KEYの値等から生成される文字列で、
-        # 第三者が推測しずらい文字列です。この文字列をもとに、本登録用のURLを作成し、そのURLをメールで伝えるという流れです。
-#        current_site = get_current_site(self.request)
-#        domain = current_site.domain
-#        print(user.pk)
-#        context = {
-#            'protocol': self.request.scheme,
-#            'domain': domain,
-#            'token': dumps(user.pk),
-#            'user': user,
-#        }
-
-        # render_to_string()はrender関数にも内部的に使われているショートカット関数
-#        subject = render_to_string('register/mail_template/create/subject.txt', context)
-#        message = render_to_string('register/mail_template/create/message.txt', context)
-
-        # ユーザーモデルにはメールアドレスフィールドがあるため、send_mailではなく
-        # 宛先不要のuser.email_userを使う
-#        user.email_user(subject, message)
-#        return redirect('register:user_create_done')
-
-
-

@@ -1,9 +1,11 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
 from .models import Character
 from .forms import CharacterForm
 # Create your views here.
 
 
+@login_required
 def character_selection(request):
     """
     キャラクターを選択して決定します。

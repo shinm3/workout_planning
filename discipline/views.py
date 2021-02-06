@@ -3,10 +3,12 @@ from routine.models import BodyPart
 from .models import Discipline
 from .forms import DisciplineForm
 from django.views.decorators.http import require_POST
+from django.contrib.auth.decorators import login_required
 
 import datetime
 
 
+@login_required
 def discipline_create(request, pk, year, month, day, new):
     """ 新規に指定部位の種目を作成します。 """
 
@@ -45,6 +47,7 @@ def discipline_create(request, pk, year, month, day, new):
     })
 
 
+@login_required
 def day_schedule_discipline(request, pk, year, month, day):
     """ 指定部位の種目一覧を表示させます。 """
 
@@ -68,6 +71,7 @@ def day_schedule_discipline(request, pk, year, month, day):
     })
 
 
+@login_required
 def discipline_update(request, pk, year, month, day):
     """ 指定部位の種目を更新します。 """
 
