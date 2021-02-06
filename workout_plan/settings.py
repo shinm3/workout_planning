@@ -85,9 +85,11 @@ WSGI_APPLICATION = 'workout_plan.wsgi.application'
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 DATABASES = {
-    'default': env.db(),
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -152,6 +154,18 @@ EMAIL_USE_TLS = True
 
 if not DEBUG:
     INSTALLED_APPS.append('storages')
+
+    # 環境変数にて、DBの簡略記法にRDSのエンドポイントを指定できないため、env.db()を使用せずに表記
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'workout_plan',
+            'USER': 'root',
+            'PASSWORD': env('DATABASE_PASS'),
+            'HOST': 'workout-planning-web.cahz2hijsbun.ap-northeast-1.rds.amazonaws.com',
+            'PORT': '3306',
+        }
+    }
 
     AWS_ACCESS_KEY_ID = env('AWS_ACCESS_KEY_ID')
     AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY')
