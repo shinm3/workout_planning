@@ -18,6 +18,7 @@ def term_decision(request):
     if request.method == 'POST':
         form = TermDecisionForm(request.POST)
         if form.is_valid():
+            # request.provisionalにルーティン期間を仮保存
             request.provisional.add_form_data({'term_form_data': request.POST})
             return redirect('routine:list')
     else:
@@ -70,6 +71,7 @@ def week_list(request):
             # ex_data.pkを持つデータがなければprovisionalにex_form_dataを追加します。
             if request.provisional.judge_have_id_data(ex_data.pk):
                 image = ex_data.get_image_url()
+                # request.provisionalに設定済みのルーティンを仮保存
                 request.provisional.add_form_data({ex_form_data: {
                     'week': ex_data.week,
                     'part': ex_data.part,
@@ -83,9 +85,9 @@ def week_list(request):
         # 例 月曜日の場合: [ex_form_data_015:{'week': '月曜日', 'part': '大胸筋', 'detail_part': '上部',
         # 'image2': ex_data.image.url, 'pid': 10}, ex_form_data_016:{'week': '月曜日', 'part': .......}]
         form_data = request.provisional.get_form_data(wd)
-
         body_parts.append(form_data)  # 該当曜日のデータが存在しない場合は空のリストが追加されます
         count_list.append(len(form_data))  # 該当曜日のデータの個数をcount_listに追加
+
     body_parts_count = body_parts.count([])  # 各曜日の空のリストの個数
     max_count = max(count_list)  # 最もデータが多い曜日の個数
     # 月曜日～日曜日の各曜日のデータを一つずつ（なければ空を）　i_list　に追加
@@ -151,7 +153,7 @@ def routine_create(request, num):
         if data_count != 5:  # データ数が5以下の場合
             form = BodyPartForm(request.POST, bp_objects=form_data)
             if form.is_valid():
-                # provisionalに入力データを格納する。
+                # 画像のパスなどを整えたうえでセッションprovisionalに入力データを格納する。
                 arrange_form_data = request.provisional.arrange_form_data(form, pid)
                 request.provisional.add_form_data({create_form_data: arrange_form_data})
                 if request.POST.get('continue'):  # 登録を続けて行う場合
@@ -199,6 +201,7 @@ def routine_update(request, num, pid, form_num):
                 del request.provisional.ex_form_data[ex_form_data]
                 form_data = update_form_data
                 form_num = 2
+            # 画像のパスなどを整えたうえでセッションprovisionalに変更データを格納する。
             arrange_form_data = request.provisional.arrange_form_data(form, pid, form_num)
             request.provisional.add_form_data({form_data: arrange_form_data})
 
@@ -234,7 +237,7 @@ def routine_decision(request):
     """トレーニングルーティン決定後の処理になります。
 
     削除をした場合、DBにデータがあればそれを削除します。
-    新規で作成したセッションデータがある場合（新規作成セッションデータを更新したデータも含まれます）、それをDBに保存します。
+    新規で作成したセッション（provisional）データがある場合（新規作成セッションデータを更新したデータも含まれます）、それをDBに保存します。
     変更したセッションデータがある場合、それをDBに更新します。
     ルーティン期間を設定（変更）した場合、それをDBに更新します。
 

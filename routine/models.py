@@ -1,6 +1,5 @@
 from django.db import models
 from django.conf import settings
-import datetime
 
 PARTS = (
     ('胸', '胸'), ('背中', '背中'), ('肩', '肩'),

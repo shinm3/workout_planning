@@ -11,7 +11,10 @@ IMAGES = {
 
 class Provisional:
     def __init__(self, ex=None, create=None, update=None, delete=None, term=None):
-        """ 各変数のキーについて　
+        """ ルーティン設定において決定する前に仮としてセッションに値を保存するための処理になります。
+
+
+        各変数のキーについて　
 
         ・左部分の文字部
 
@@ -57,6 +60,10 @@ class Provisional:
 
     @classmethod
     def from_json(cls, data):
+        """セッションからルーティン設定値を取り出してクラス変数に格納したものをインスタンス化
+
+        dataはセッション'provisional'の値が入ります。
+        """
         ex_items = None or {}
         create_items = None or {}
         update_items = None or {}
@@ -85,7 +92,7 @@ class Provisional:
          　'detail_part': '上部',
          　'image2': ex_data.image.url,
          　'pid': 15}
-         ※'pid'の値は　ex_form_dataとupdate_form_data（既に設定済みまたは変更データ）であればDBに登録されているｉｄの値になります。
+         ※'pid'の値は　ex_form_dataとupdate_form_data（既に設定済みまたは変更データ）であればDBに登録されている部位オブジェクトのｉｄの値になります。
          ※create_form_data（新規作成データ）であればその曜日の何個目のデータ（実際には-1した値）かを表す値になります。　
          ※例　1個目ならpidの値は0
         """
@@ -181,7 +188,7 @@ class Provisional:
             file_name = IMAGES[part + detail_part]
         else:
             file_name = IMAGES[part]
-        image = f"media/media/{file_name}.png"
+        image = f"media/{file_name}.png"
 
         return {
             'week': week,
