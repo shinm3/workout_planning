@@ -7,13 +7,7 @@ PARTS = (
     ('全身', '全身'), ('上半身', '上半身')
 )
 
-IMAGES = {
-    "胸": "chest", "胸上部": "upperchest", "胸下部": "underchest", "胸中部": "middlechest", "腹": "abs",
-    "背中": "back", "背中広背筋": "latissimusdorsi", "背中僧帽筋中部": "centraltrapezius", "肩": "shoulder",
-    "肩前部": "frontshoulder", "肩側部": "sideshoulder", "肩後部": "rearshoulder", "肩僧帽筋上部": "trapezius",
-    "腕": "arm", "腕二頭": "biceps", "腕三頭": "triceps", "腕前腕": "forearm", "脚": "leg", "脚四頭": "quads",
-    "脚ハム": "hamstring", "脚臀部": "buttocks", "脚カーフ": "calf", "全身": "wholebody", "上半身": "upperbody",
-}
+IMAGES = settings.IMAGES
 
 
 def check_part(value):
