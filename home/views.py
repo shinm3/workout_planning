@@ -26,11 +26,10 @@ class Home(LoginRequiredMixin, WeekWithScheduleMixin, generic.TemplateView):
         calendar_context = {'page_title': 'ホーム', 'breadcrumb_list': None}
         context.update(calendar_context)
         user = self.request.user
-        if Character.objects.filter(user=user):
+        if Character.objects.filter(user=user):  # 既にキャラクターの設定がされている場合
             character = get_object_or_404(Character, user=user)
             character_serif = 'character_serif/character' + character.number + '.html'
-        else:
-            # キャラクター初期設定
+        else:  # キャラクター初期設定
             character = Character.objects.create(name='ボディビルダー', number='1', user=user)
             character_serif = 'character_serif/character1.html'
 

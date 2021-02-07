@@ -75,7 +75,6 @@ class WeekWithScheduleMixin(WeekCalendarMixin):
             else:  # 日付指定のクエリセットのみの場合
                 day_schedules[day] = dt_bp_objects.exclude(part=None)
 
-
         return day_schedules
 
     def get_week_calendar(self):
@@ -119,6 +118,7 @@ class WeekWithScheduleMixin(WeekCalendarMixin):
         return calendar_context
 
     def get_today_schedules(self):
+        """ 今日のトレーニング部位スケジュールを取得 """
         date = datetime.date.today()
         next_date = date + datetime.timedelta(days=1)
         dates = [date, next_date]

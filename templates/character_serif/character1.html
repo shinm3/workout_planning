@@ -1,24 +1,24 @@
 <p>
-                {% if today_schedules %}
-                    {% if today_schedules|length == 1 %}
-                        {% for today_schedule in today_schedules %}
-                            {% if today_schedule.part == '全身' %}
-                                ディプリート中かな？
-                            {% elif today_schedule.part == '上半身' %}
-                                今日は満遍なくだな。
-                            {% else %}
-                                今日は一部位だけだ。<br>
-                                いろんな種目で集中的に追い込め！！
-                            {% endif %}
-                        {% endfor %}
-                    {% elif today_schedules|length <= 3 %}
-                        今日は中々ハードな<br>トレーニングになりそうだな。
-                    {% elif today_schedules|length <= 4 %}
-                        おしゃべりは後にしてくれ。<br>パンプが冷めちまう
-                    {% else %}
-                        right weight babyーーーー！！
-                    {% endif %}
-                {% else %}
-                    ？...怪我でもしたのか？？
-                {% endif %}
-                </p>
+    {% if today_schedules %}
+      {% if today_schedules|length == 1 %}
+        {% for today_schedule in today_schedules %}
+          {% if today_schedule.part == '全身' %}
+            ディプリート中かな？
+          {% elif today_schedule.part == '上半身' %}
+            今日は満遍なくだな。
+          {% else %}
+            今日は一部位だけだ。<br>
+            いろんな種目で集中的に追い込め！！
+          {% endif %}
+        {% endfor %}
+      {% elif today_schedules|length <= 3 %}
+        今日は中々ハードな<br>トレーニングになりそうだな。
+      {% elif today_schedules|length <= 4 %}
+        おしゃべりは後にしてくれ。<br>パンプが冷めちまう
+      {% else %}
+        right weight babyーーーー！！
+      {% endif %}
+    {% else %}
+      ？...怪我でもしたのか？？
+    {% endif %}
+</p>
