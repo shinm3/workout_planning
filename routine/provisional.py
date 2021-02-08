@@ -1,12 +1,4 @@
-
-
-IMAGES = {
-    "胸": "chest", "胸上部": "upperchest", "胸下部": "underchest", "胸中部": "middlechest", "腹": "abs",
-    "背中": "back", "背中広背筋": "latissimusdorsi", "背中僧帽筋中部": "centraltrapezius", "肩": "shoulder",
-    "肩前部": "frontshoulder", "肩側部": "sideshoulder", "肩後部": "rearshoulder", "肩僧帽筋上部": "trapezius",
-    "腕": "arm", "腕二頭": "biceps", "腕三頭": "triceps", "腕前腕": "forearm", "脚": "leg", "脚四頭": "quads",
-    "脚ハム": "hamstring", "脚臀部": "buttocks", "脚カーフ": "calf", "全身": "wholebody", "上半身": "upperbody",
-}
+from django.conf import settings
 
 
 class Provisional:
@@ -185,9 +177,9 @@ class Provisional:
         part = form.cleaned_data['part']
         detail_part = form.cleaned_data['detail_part']
         if detail_part:
-            file_name = IMAGES[part + detail_part]
+            file_name = settings.IMAGES[part + detail_part]
         else:
-            file_name = IMAGES[part]
+            file_name = settings.IMAGES[part]
         image = f"media/{file_name}.png"
 
         return {

@@ -1,11 +1,9 @@
 from django.shortcuts import render, redirect
 from django.views.decorators.http import require_POST
 from django.contrib.auth.decorators import login_required
+from django.conf import settings
 from .models import BodyPart, TermDecision
 from .forms import BodyPartForm, TermDecisionForm
-
-
-WEEK = ['月曜日', '火曜日', '水曜日', '木曜日', '金曜日', '土曜日', '日曜日']
 
 FORM_TYPE = ['ex_form_data_', 'create_form_data_', 'update_form_data_']
 
@@ -60,7 +58,7 @@ def week_list(request):
     # それをデータのリストにまとめたものを「body_parts」リストに入れます。
     # 例　for文の一巡目：　i = 0 , day = '月曜日'
 
-    for i, wd in enumerate(WEEK):
+    for i, wd in enumerate(settings.WEEK):
 
         # 該当する曜日のフィールドを持つすでに設定済みのbody_partオブジェクト（ルーティンオブジェクト）があれば取得する。
         ex_many_data = BodyPart.objects.filter(week=wd, user=user)
@@ -140,7 +138,7 @@ def routine_create(request, num):
     pid　は指定した曜日のデータの何個目かを表す数値になります。　※-1した値になります。　2個目のデータなら値は1になります。
 
     """
-    wd = WEEK[num]  # 曜日を取得
+    wd = settings.WEEK[num]  # 曜日を取得
     error = None
     form_data = request.provisional.get_form_data(wd)
     # 指定した曜日のデータの何個目かを表す数値になります。　※-1した値になります。　2個目のデータなら値は1になります。
@@ -186,7 +184,7 @@ def routine_update(request, num, pid, form_num):
     'update_form_data_'のままセッションデータを更新します。
     'create_form_data_'は変更しても'create_form_data_'のままセッションデータを更新します。
     """
-    wd = WEEK[num]
+    wd = settings.WEEK[num]
     form_data = FORM_TYPE[form_num] + str(num) + str(pid)  # 変更対象のセッションデータキー
     update_form_data = 'update_form_data_' + str(num) + str(pid)
     ex_form_data = 'ex_form_data_' + str(num) + str(pid)
@@ -288,7 +286,7 @@ def routine_decision(request):
         for dt_bp_object in dt_bp_objects:
             none_bp_objects = BodyPart.objects.filter(part=None, date=dt_bp_object.date, user=user)
             judge_term_date = term_date.judge_term_date(date=dt_bp_object.date)
-            week = WEEK[dt_bp_object.date.weekday()]
+            week = settings.WEEK[dt_bp_object.date.weekday()]
             if judge_term_date and week in form_week:
                 # ルーティンで上書きする場合
                 if request.POST.get('overwrite'):

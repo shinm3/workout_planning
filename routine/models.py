@@ -7,8 +7,6 @@ PARTS = (
     ('全身', '全身'), ('上半身', '上半身')
 )
 
-IMAGES = settings.IMAGES
-
 
 def check_part(value):
     return value
@@ -63,9 +61,9 @@ class BodyPart(models.Model):
         part = self.part
         detail_part = self.detail_part
         if detail_part:
-            file_name = IMAGES[part + detail_part]
+            file_name = settings.IMAGES[part + detail_part]
         else:
-            file_name = IMAGES[part]
+            file_name = settings.IMAGES[part]
         image = f"media/{file_name}.png"
         return image
 

@@ -34,7 +34,7 @@ class BodyPartForm(forms.ModelForm):
 
     def clean_part(self):
         """部位の選択なくformが送られた場合の処理"""
-        part = self.cleaned_data
+        part = self.cleaned_data.get('part')
         if part is None:
             raise forms.ValidationError("部位を選択してください")
         return part

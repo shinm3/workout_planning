@@ -159,6 +159,8 @@ IMAGES = {
     "脚ハム": "hamstring", "脚臀部": "buttocks", "脚カーフ": "calf", "全身": "wholebody", "上半身": "upperbody",
 }
 
+WEEK = ['月曜日', '火曜日', '水曜日', '木曜日', '金曜日', '土曜日', '日曜日']
+
 if not DEBUG:
     INSTALLED_APPS.append('storages')
 

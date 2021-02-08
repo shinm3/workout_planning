@@ -11,11 +11,6 @@ import datetime
 from django.utils import timezone
 
 
-WEEK = ['月曜日', '火曜日', '水曜日', '木曜日', '金曜日', '土曜日', '日曜日']
-
-IMAGES = settings.IMAGES
-
-
 class MonthWithScheduleCalendar(LoginRequiredMixin, mixins.MonthWithScheduleMixin, generic.TemplateView):
     """月間カレンダーを表示するビュー"""
     template_name = 'calendar.html'
@@ -52,7 +47,7 @@ def day_schedule_create_or_detail(request, year, month, day, detail=None):
     """
     user = request.user
     select_day = datetime.date(year=year, month=month, day=day)
-    wd = WEEK[select_day.weekday()]
+    wd = settings.WEEK[select_day.weekday()]
     error = None
     bp_objects = BodyPart.objects.filter(user=user)
 
@@ -137,7 +132,7 @@ def day_schedule_update(request, pk):
     year = int(bp_object.date.year)
     month = int(bp_object.date.month)
     select_day = bp_object.date
-    wd = WEEK[select_day.weekday()]
+    wd = settings.WEEK[select_day.weekday()]
 
     wd_dt_bp_objects = create_wd_bp_objects(request.user, wd, select_day)
 
@@ -216,7 +211,7 @@ def day_schedule_update2(request, pk,  year, month, day):
 def routine_day_delete(request, year=timezone.now().year, month=timezone.now().month, day=timezone.now().day):
     user = request.user
     date = datetime.date(year=year, month=month, day=day)
-    wd = WEEK[date.weekday()]
+    wd = settings.WEEK[date.weekday()]
 
     # カレンダーから全て削除する場合
     if request.POST.get('delete_all'):
@@ -269,7 +264,6 @@ def create_wd_bp_objects(user, wd, date):
             wd_bp_objects = BodyPart.objects.filter(week=wd, user=user)
     else:
         wd_bp_objects = BodyPart.objects.filter(week=wd, user=user)
-
 
     wd_dt_bp_objects = []
 
