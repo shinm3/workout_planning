@@ -54,9 +54,9 @@
             </tbody>
         </table>
         <div class="border_double">
-            <a href="{% url 'register:user_data_input' %}" class="update btn btn-primary btn-lg"><<修正する</a>
+            <a href="{% url 'register:user_data_input' %}" class="update btn btn-primary btn-lg">&lt;&lt;修正する</a>
             <form action="{% url 'register:user_create' %}" method="POST" class="register">
-                <button type="submit" class="update btn btn-primary btn-lg">登録する>></button>
+                <button type="submit" class="update btn btn-primary btn-lg">登録する&gt;&gt;</button>
                 {% csrf_token %}
             </form>
         </div>

@@ -132,7 +132,7 @@ def user_create(request):
         }
 
         # render_to_string()はrender関数にも内部的に使われているショートカット関数
-        subject = render_to_string('register/mail_template/create/subject.txt', context)
+        subject = render_to_string('register/mail_template/create/subject.txt', context).strip()
         message = render_to_string('register/mail_template/create/message.txt', context)
 
         # ユーザーモデルにはメールアドレスフィールドがあるため、send_mailではなく
@@ -291,6 +291,7 @@ class PasswordResetConfirm(PasswordResetConfirmView):
         context["page_title"] = "パスワード再発行"
         return context
 
+
 class PasswordResetComplete(PasswordResetCompleteView):
     """新パスワード設定しましたページ※忘れた時の処理"""
     template_name = 'register/password_reset_complete.html'
@@ -321,7 +322,7 @@ class EmailChange(LoginRequiredMixin, generic.FormView):
             'user': user,
         }
 
-        subject = render_to_string('register/mail_template/email_change/subject.txt', context)
+        subject = render_to_string('register/mail_template/email_change/subject.txt', context).strip()
         message = render_to_string('register/mail_template/email_change/message.txt', context)
         send_mail(subject, message, None, [new_email])
 

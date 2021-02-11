@@ -209,6 +209,7 @@ def day_schedule_update2(request, pk,  year, month, day):
 
 @require_POST
 def routine_day_delete(request, year=timezone.now().year, month=timezone.now().month, day=timezone.now().day):
+    """カレンダーから設定部位を削除する処理"""
     user = request.user
     date = datetime.date(year=year, month=month, day=day)
     wd = settings.WEEK[date.weekday()]
