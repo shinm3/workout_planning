@@ -205,7 +205,7 @@ if not DEBUG:
         'handlers': {
             'file': {
                 'class': 'logging.FileHandler',
-                'filename': '/var/log/narito.ninja.log',
+                'filename': '/var/log/shin.ninja.log',
                 'formatter': 'standard',
             },
         },
