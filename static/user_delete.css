@@ -1,8 +1,3 @@
-.description {
-    font-size: 18px;
-    padding: 20px 0;
-    border-bottom: dashed 1px #b1b0f6;
-}
 .border_double{
         margin-top: 3em;
         text-align: center;
@@ -48,15 +43,6 @@
      background-size:100px 100px;
 }
 
-.table td, .table th {
-    vertical-align: middle;
-     line-height:47px;
-}
-.register {
-    display: inline;
-    margin-left: 50px;
-}
-
 .btn-wrapper {
     text-align: center;
 }
@@ -66,25 +52,36 @@
     background-color: #d9d9d9;
 }
 
+.user_name {
+    background-color: #f4f4f4;
+    font-size: 30px;
+    border-bottom: solid 2px;
+}
+
+.unsubscribe{
+        display: inline-block;
+        margin: 1em 0  1em 0;
+        background: linear-gradient(
+            to bottom,
+            rgb(255, 218, 223) 0%,
+            rgb(255, 184, 179) 49%,
+            #cc0000 50%,
+            #ff9b7f 80%,
+            #ffdad6 100%
+        );
+        color: #000000;
+        text-shadow: 0 1px 0 #EFF5FB;
+        box-shadow: 0 1px 0 #FFF inset;
+        border-radius:5px;
+    }
+
 .push {
     height: 60px;
 }
 
 @media (max-width:767px) {
 
-    .table td, .table th {
-        vertical-align: middle;
-        line-height:25px;
-  }
-
-    th{
-        font-size: 15px;
+    .user_name {
+      font-size: 20px;
     }
-    td{
-        font-size: 15px;
-    }
-    td>a{
-        font-size: 15px;
-    }
-
 }

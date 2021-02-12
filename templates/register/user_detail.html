@@ -60,6 +60,9 @@
                 </tr>
             </tbody>
         </table>
+        <div class="btn-wrapper">
+          <a href="{% url 'register:user_delete' user.pk %}" class="btn">退会する</a>
+        </div>
 </div>
 <div class="push"></div>
 {% endblock %}

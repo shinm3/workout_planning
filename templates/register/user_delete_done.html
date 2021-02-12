@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'user_delete.css' %}">
+{% endblock %}
+
+{% block title %}会員登録{% endblock %}
+
+{% block content %}
+{% include 'base2.html' %}
+
+<div class="remainder">
+    <p>退会手続きを完了しました。</p>
+    <div class="square-eye"></div>
+</div>
+<div class="push"></div>
+{% endblock %}

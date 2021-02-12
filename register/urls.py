@@ -4,7 +4,7 @@ from .views import (
     UserDetail, PasswordChange, PasswordChangeDone, PasswordReset, PasswordResetDone,
     PasswordResetConfirm, PasswordResetComplete, user_data_input, user_data_confirm,
     EmailChange, EmailChangeDone, EmailChangeComplete, PhoneChange, PhoneChangeDone,
-    NameChange, NameChangeDone
+    NameChange, NameChangeDone, UserDelete, user_delete_done
 )
 
 app_name = 'register'
@@ -33,4 +33,6 @@ urlpatterns = [
     path('phone_change/done/', PhoneChangeDone.as_view(), name='phone_change_done'),
     path('name_change/<int:pk>/', NameChange.as_view(), name='name_change'),
     path('name_change/done/', NameChangeDone.as_view(), name='name_change_done'),
+    path('user_delete/<int:pk>/', UserDelete.as_view(), name='user_delete'),
+    path('user_delete_done/', user_delete_done, name='user_delete_done'),
 ]

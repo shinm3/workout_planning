@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block customcss %}
+<link rel="stylesheet" type="text/css" href="{% static 'user_delete.css' %}">
+{% endblock %}
+
+{% block title %}会員登録{% endblock %}
+
+{% block content %}
+{% include 'base2.html' %}
+
+<div class="remainder">
+    <p>あなたのユーザーアカウント<span class="user_name">「{{ user.username }}」</span>の退会手続きを行います。</p>
+    <p>本当によろしいでしょうか？</p>
+    <div class="border_double">
+        <a href="{% url 'home:home' %}" class="update btn btn-primary btn-lg">戻る</a>
+        <form action="{% url 'register:user_delete_done' %}" method="POST" class="register">
+            <button type="submit" class="unsubscribe btn btn-primary btn-lg">退会</button>
+            {% csrf_token %}
+        </form>
+    </div>
+    <div class="square-eye"></div>
+</div>
+<div class="push"></div>
+{% endblock %}

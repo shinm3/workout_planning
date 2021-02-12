@@ -216,7 +216,7 @@ class OnlyYouMixin(UserPassesTestMixin):
         return user.pk == self.kwargs['pk'] or user.is_superuser
 
 
-class UserDetail(LoginRequiredMixin, OnlyYouMixin, generic.DetailView):
+class UserDetail(OnlyYouMixin, generic.DetailView):
     model = User
     template_name = 'register/user_detail.html'
 
@@ -433,3 +433,26 @@ class NameChangeDone(LoginRequiredMixin, generic.TemplateView):
         context = super().get_context_data(**kwargs)  # 継承元のメソッドを呼び出す
         context["page_title"] = "アカウント情報"
         return context
+
+
+class UserDelete(OnlyYouMixin, generic.TemplateView):
+    """退会ページ表示"""
+    template_name = 'register/user_delete.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)  # 継承元のメソッドを呼び出す
+        context["page_title"] = "アカウント情報"
+        return context
+
+
+@require_POST
+def user_delete_done(request):
+    """ユーザーの退会処理"""
+    user = request.user
+    user.is_active = False
+    user.save()
+
+    context = {
+        "page_title": "ユーザー登録",
+    }
+    return render(request, 'register/user_delete_done.html', context)
